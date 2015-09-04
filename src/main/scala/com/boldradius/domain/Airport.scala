@@ -1,7 +1,7 @@
 package com.boldradius.domain
 import scala.language.implicitConversions
 
-case class Airport(code: AirportCode, name: String)
+case class Airport(code: AirportCode, name: String, gates: Set[Gate])
 
 object AirportCode {
   implicit def toCode(str: String) = AirportCode(str)

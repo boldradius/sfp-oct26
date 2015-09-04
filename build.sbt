@@ -30,9 +30,9 @@ lazy val root =  project.in( file(".") )
           "ch.qos.logback"             %   "logback-core"                          % "1.1.2",
           "ch.qos.logback"             %   "logback-classic"                       % "1.1.2",
           "org.scalatest"              %%  "scalatest"                             % "2.2.1"  % "test",
-          "joda-time" 				         % "joda-time" 						                   % "2.7",
-          "org.joda" % "joda-convert" % "1.2",
-          "commons-io"                 %  "commons-io"                             % "2.4"    % "test"
+          "joda-time" 				         %   "joda-time" 						                 % "2.7",
+          "org.joda"                   %   "joda-convert"                          % "1.2",
+          "commons-io"                 %   "commons-io"                            % "2.4"    % "test"
         )
       }
   )

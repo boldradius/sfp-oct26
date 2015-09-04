@@ -5,15 +5,13 @@ import org.scalatest.FreeSpec
 class DomainTests extends FreeSpec {
   "the example domain" - {
     "an airport" - {
-      "has a code and name" in {
+      "has a code and name, and a set of gates" in {
         val code = AirportCode("YXE")
         val name = "Saskatoon"
-        val airport = Airport(code, name)
+        val gates = Set(Gate("B12", Set(MD11)))
+        val airport = Airport(code, name, gates)
         assert(airport.code === code)
         assert(airport.name === name)
-      }
-      "has a set of gates" in {
-        //TODO
       }
     }
     "a gate" - {
@@ -27,7 +25,7 @@ class DomainTests extends FreeSpec {
     }
     "an airline" - {
       "has a name and a set of aircraft" in {
-        val dplane = Aircraft()
+        val dplane = Aircraft(MD11)
         val delta = Airline("Delta", Set(dplane))
       }
     }
@@ -41,8 +39,9 @@ class DomainTests extends FreeSpec {
     }
     "an aircraft" - {
       "has a type, a set of seats, an identifier and an optional schedule" in {
-        val dplane = Aircraft()
-        //TODO
+        val typ = MD11
+        val dplane = Aircraft(typ)
+        assert(dplane.aircraftType === typ)
       }
     }
     "a passenger" - {
@@ -52,7 +51,17 @@ class DomainTests extends FreeSpec {
       //TODO
     }
     "a schedule" - {
-      //TODO
+      import org.joda.time.DateTime
+
+      "has an origin and a destination, a start date/time and end date/time" in {
+        val origin = AirportCode("YXE")
+        val dest = AirportCode("MSP")
+        val now = new DateTime()
+        val later = new DateTime()
+        val sched = Schedule((origin, now), (dest, later))
+        assert(sched.origin === (origin, now))
+        assert(sched.destination === (dest, later))
+      }
     }
     "an airport code" - {
       "must be 3 uppercase letters" in {
@@ -67,5 +76,4 @@ class DomainTests extends FreeSpec {
       }
     }
   }
-
 }
