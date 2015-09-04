@@ -9,3 +9,5 @@ object AirportCode {
 case class AirportCode(str: String) {
   require(str.matches("[A-Z][A-Z][A-Z]"), "Must be 3 uppercase letters")
 }
+
+case class Gate(id: String, aircraftTypes: Set[AircraftType])

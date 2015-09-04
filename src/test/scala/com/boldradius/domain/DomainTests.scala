@@ -12,6 +12,47 @@ class DomainTests extends FreeSpec {
         assert(airport.code === code)
         assert(airport.name === name)
       }
+      "has a set of gates" in {
+        //TODO
+      }
+    }
+    "a gate" - {
+      "has an identifier and a set of aircraft types" in {
+        val id = "B14"
+        val types: Set[AircraftType] = Set(MD11)
+        val g = Gate(id, types)
+        assert(g.id === id)
+        assert(g.aircraftTypes === types)
+      }
+    }
+    "an airline" - {
+      "has a name and a set of aircraft" in {
+        val dplane = Aircraft()
+        val delta = Airline("Delta", Set(dplane))
+      }
+    }
+    "an itinerary" - {
+      "a tentative itinerary" - {
+        //TODO
+      }
+      "a booked itinerary" - {
+      }
+      //TODO
+    }
+    "an aircraft" - {
+      "has a type, a set of seats, an identifier and an optional schedule" in {
+        val dplane = Aircraft()
+        //TODO
+      }
+    }
+    "a passenger" - {
+      //TODO
+    }
+    "a seat" - {
+      //TODO
+    }
+    "a schedule" - {
+      //TODO
     }
     "an airport code" - {
       "must be 3 uppercase letters" in {
