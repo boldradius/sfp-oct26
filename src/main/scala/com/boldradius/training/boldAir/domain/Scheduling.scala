@@ -1,6 +1,6 @@
-package com.boldradius.domain
+package com.boldradius.training.boldAir.domain
 
-import org.joda.time.DateTime
+import com.github.nscala_time.time.Imports._
 
 case class Schedule(origin: (AirportCode, DateTime), destination: (AirportCode, DateTime))
 

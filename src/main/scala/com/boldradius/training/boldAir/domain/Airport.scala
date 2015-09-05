@@ -1,4 +1,5 @@
-package com.boldradius.domain
+package com.boldradius.training.boldAir.domain
+
 import scala.language.implicitConversions
 
 case class Airport(code: AirportCode, name: String, gates: Set[Gate])

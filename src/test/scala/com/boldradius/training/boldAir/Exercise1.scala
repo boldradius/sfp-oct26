@@ -1,4 +1,4 @@
-package com.boldradius
+package com.boldradius.training.boldAir
 
 import org.scalatest.FreeSpec
 
