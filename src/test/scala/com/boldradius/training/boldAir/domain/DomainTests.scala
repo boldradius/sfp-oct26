@@ -25,8 +25,9 @@ class DomainTests extends FreeSpec {
     }
     "an airline" - {
       "has a name and a set of aircraft" in {
-        val dplane = Aircraft(MD11)
-        val delta = Airline("Delta", Set(dplane))
+        val dplanes = Set(Aircraft(MD11))
+        val delta = Airline("Delta", dplanes)
+        assert(delta.aircraft === dplanes)
       }
     }
     "an itinerary" - {
