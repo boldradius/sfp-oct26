@@ -1,6 +1,7 @@
 package com.boldradius.training.boldAir.domain
 
 import org.scalatest.FreeSpec
+import org.joda.time.DateTime
 
 class DomainTests extends FreeSpec {
   "the example domain" - {
@@ -25,35 +26,57 @@ class DomainTests extends FreeSpec {
     }
     "an airline" - {
       "has a name and a set of aircraft" in {
-        val dplanes = Set(Aircraft(MD11))
+        val dplanes = Set(Aircraft(MD11, "N1234"))
         val delta = Airline("Delta", dplanes)
         assert(delta.aircraft === dplanes)
       }
     }
+    "a flight" - {
+      "has a schedule plus an aircraft" in {
+        val aircraft = Aircraft(MD11, "N1234")
+        val sched = arbitrarySchedule
+        val flight = Flight(aircraft, sched)
+        assert(flight.aircraft === aircraft)
+        assert(flight.schedule === sched)
+      }
+    }
     "an itinerary" - {
       "a tentative itinerary" - {
-        //TODO
+        "has a sequence of flights" in {
+          val flights = Seq(arbitraryFlight("N123"), arbitraryFlight("N234"))
+          val itin = TentativeItinerary(flights)
+          assert(itin.flights === flights)
+        }
       }
       "a booked itinerary" - {
       }
-      //TODO
     }
     "an aircraft" - {
-      "has a type, a set of seats, an identifier and an optional schedule" in {
+      "has a type, a set of seats and an identifier" in {
         val typ = MD11
-        val dplane = Aircraft(typ)
+        val id = "N1234"
+        val dplane = Aircraft(typ, id)
         assert(dplane.aircraftType === typ)
+        assert(dplane.id === id)
       }
     }
     "a passenger" - {
-      //TODO
+      "has a name" in {
+        val name = "Joe Smith"
+        val p = Passenger(name)
+        assert(p.name === name)
+      }
     }
     "a seat" - {
-      //TODO
+      "has a row and position" in {
+        val row = 41
+        val position = "F"
+        val seat = Seat(row, position)
+        assert(seat.row === row)
+        assert(seat.position === position)
+      }
     }
     "a schedule" - {
-      import org.joda.time.DateTime
-
       "has an origin and a destination, a start date/time and end date/time" in {
         val origin = AirportCode("YXE")
         val dest = AirportCode("MSP")
@@ -77,4 +100,7 @@ class DomainTests extends FreeSpec {
       }
     }
   }
+
+  def arbitrarySchedule = Schedule((AirportCode("YXE"), new DateTime()), (AirportCode("YYZ"), new DateTime()))
+  def arbitraryFlight(id: String) = Flight(Aircraft(MD11, id), arbitrarySchedule)
 }

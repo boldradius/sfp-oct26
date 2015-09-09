@@ -6,5 +6,6 @@ case class Schedule(origin: (AirportCode, DateTime), destination: (AirportCode, 
 
 trait Itinerary
 
-case class TentativeItinerary() extends Itinerary
+case class Flight(aircraft: Aircraft, schedule: Schedule)
+case class TentativeItinerary(flights: Seq[Flight]) extends Itinerary
 case class BookedItinerary() extends Itinerary
