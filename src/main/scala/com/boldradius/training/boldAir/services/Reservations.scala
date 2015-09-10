@@ -1,10 +1,9 @@
 package com.boldradius.training.boldAir.services
 
-import com.boldradius.training.boldAir.domain.{TentativeItinerary, AirportCode}
+import com.boldradius.training.boldAir.domain._
 import com.github.nscala_time.time.Imports._
+import squants.market._
 
-class Reservations {
-  def proposeItineraries(origin: (AirportCode, DateTime),
-                         destination: (AirportCode, DateTime)): Vector[TentativeItinerary] =
-    Vector.empty[TentativeItinerary]
+object Reservations {
+  def totalPrice(itinerary: TentativeItinerary): Money = ???
 }
