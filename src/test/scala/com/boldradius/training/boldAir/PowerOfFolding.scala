@@ -12,7 +12,7 @@ class PowerOfFolding extends FreeSpec with MustMatchers {
     "summing a Seq of dollar ammounts" - {
       "Seq.empty" in {
         val initValue = USD(0)
-        initValue mustBe foldLeft(Seq.empty[Money])(initValue)(_ + _)
+        foldLeft(Seq.empty[Money])(initValue)(_ + _) mustBe initValue
       }
     }
   }
