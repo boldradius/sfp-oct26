@@ -1,7 +1,7 @@
 package com.boldradius.training.boldAir
 
 object TestHelpers {
-  import org.joda.time.DateTime
+  import com.github.nscala_time.time.Imports._
   import domain._
   import squants.market._
 

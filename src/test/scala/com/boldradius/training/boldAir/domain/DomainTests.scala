@@ -1,7 +1,7 @@
 package com.boldradius.training.boldAir.domain
 
 import org.scalatest.FreeSpec
-import org.joda.time.DateTime
+import com.github.nscala_time.time.Imports._
 import squants.market._
 import com.boldradius.training.boldAir.TestHelpers._
 
