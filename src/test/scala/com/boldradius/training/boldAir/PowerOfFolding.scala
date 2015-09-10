@@ -1,12 +1,19 @@
 package com.boldradius.training.boldAir
 
 import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 
-class PowerOfFolding extends FreeSpec {
+class PowerOfFolding extends FreeSpec with MustMatchers {
+  import TestHelpers._
+  import squants.market._
+  import Folding._
 
-  "an itinerary" - {
-    "can compute a total flight time and total elapsed time for itself" in {
-      // fold over the various flights in the itinerary
+  "foldLeft" - {
+    "summing a Seq of dollar ammounts" - {
+      "Seq.empty" in {
+        val initValue = USD(0)
+        initValue mustBe foldLeft(Seq.empty[Money])(initValue)(_ + _)
+      }
     }
   }
 }
