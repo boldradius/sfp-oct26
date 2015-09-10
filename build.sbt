@@ -8,7 +8,7 @@ val baseSettings: Seq[Def.Setting[_]] =
     organization := "com.boldradius",
     scalaVersion := "2.11.7",
     ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) },
-    scalacOptions in Compile ++= Seq("-encoding", "UTF-8", "-target:jvm-1.7", "-deprecation", "-unchecked", "-Ywarn-dead-code", "-Xfatal-warnings", "-feature", "-language:postfixOps"),
+    scalacOptions in Compile ++= Seq("-encoding", "UTF-8", "-target:jvm-1.7", "-deprecation", "-unchecked", "-Xfatal-warnings", "-feature", "-language:postfixOps"),
     scalacOptions in (Compile, doc) <++= (name in (Compile, doc), version in (Compile, doc)) map DefaultOptions.scaladoc,
     javacOptions in (Compile, compile) ++= Seq("-source", "1.7", "-target", "1.7", "-Xlint:unchecked", "-Xlint:deprecation", "-Xlint:-options"),
     javacOptions in doc := Seq(),
