@@ -2,10 +2,10 @@ package com.boldradius.training.boldAir
 
 import org.scalatest.FreeSpec
 
-class PowerOfFolding extends FreeSpec {
+class PowerOfFoldingSpec extends FreeSpec {
   import TestHelpers._
   import squants.market._
-  import Folding._
+  import PowerOfFolding._
 
   "foldLeft" - {
     "summing a Seq of dollar ammounts" - {
