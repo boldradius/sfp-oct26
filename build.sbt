@@ -30,6 +30,7 @@ lazy val root =  project.in( file(".") )
           "ch.qos.logback"             %   "logback-classic"                       % "1.1.2",
           "org.scalatest"              %%  "scalatest"                             % "2.2.1"  % "test",
           "com.github.nscala-time"     %% "nscala-time"                            % "2.2.0",
+          "com.squants"                %% "squants"                                % "0.5.3",
           "commons-io"                 %   "commons-io"                            % "2.4"    % "test"
         )
       }

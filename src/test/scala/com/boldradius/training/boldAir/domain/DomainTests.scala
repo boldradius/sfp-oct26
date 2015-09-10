@@ -2,6 +2,8 @@ package com.boldradius.training.boldAir.domain
 
 import org.scalatest.FreeSpec
 import org.joda.time.DateTime
+import squants.market._
+import com.boldradius.training.boldAir.TestHelpers._
 
 class DomainTests extends FreeSpec {
   "the example domain" - {
@@ -32,18 +34,20 @@ class DomainTests extends FreeSpec {
       }
     }
     "a flight" - {
-      "has a schedule plus an aircraft" in {
+      "has a schedule, an aircraft, and a price" in {
         val aircraft = Aircraft(MD11, "N1234")
         val sched = arbitrarySchedule
-        val flight = Flight(aircraft, sched)
+        val price = USD(300)
+        val flight = Flight(aircraft, sched, price)
         assert(flight.aircraft === aircraft)
         assert(flight.schedule === sched)
+        assert(flight.price === price)
       }
     }
     "an itinerary" - {
       "a tentative itinerary" - {
         "has a sequence of flights" in {
-          val flights = Seq(arbitraryFlight("N123"), arbitraryFlight("N234"))
+          val flights = Seq(arbitraryFlight("N123", USD(100)), arbitraryFlight("N234", USD(100)))
           val itin = TentativeItinerary(flights)
           assert(itin.flights === flights)
         }
@@ -101,6 +105,4 @@ class DomainTests extends FreeSpec {
     }
   }
 
-  def arbitrarySchedule = Schedule((AirportCode("YXE"), new DateTime()), (AirportCode("YYZ"), new DateTime()))
-  def arbitraryFlight(id: String) = Flight(Aircraft(MD11, id), arbitrarySchedule)
 }
