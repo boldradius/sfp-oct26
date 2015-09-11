@@ -1,8 +1,9 @@
 package com.boldradius.training.boldAir
 
 import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 
-class FoldingSpec extends FreeSpec {
+class FoldingSpec extends FreeSpec with MustMatchers {
   import TestHelpers._
   import squants.market._
   import domain._
@@ -28,7 +29,7 @@ class FoldingSpec extends FreeSpec {
     "empty itinerary" - {
       "cost is zero" in {
         val itinerary = TentativeItinerary(Seq.empty)
-        assert(totalPriceFold(itinerary) === USD(0))
+        totalPriceFold(itinerary) mustBe USD(0)
       }
     }
     "non-empty itinerary" - {
@@ -40,7 +41,7 @@ class FoldingSpec extends FreeSpec {
           arbitraryFlight("N123", leg1Price), arbitraryFlight("N234", leg2Price))
         val itinerary = TentativeItinerary(flights)
 
-        assert(totalPriceFold(itinerary) === leg1Price + leg2Price)
+        totalPriceFold(itinerary) mustBe leg1Price + leg2Price
       }
     }
   }
