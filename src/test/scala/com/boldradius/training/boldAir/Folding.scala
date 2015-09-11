@@ -5,7 +5,7 @@ import org.scalatest.FreeSpec
 class FoldingSpec extends FreeSpec {
   import TestHelpers._
   import squants.market._
-  import PowerOfFolding._
+  import Folding._
 
   "foldLeft" - {
     "summing a Seq of dollar ammounts" - {

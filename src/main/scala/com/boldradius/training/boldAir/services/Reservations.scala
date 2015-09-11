@@ -10,4 +10,13 @@ object Reservations {
 
   def totalPriceFold(itinerary: TentativeItinerary): Money =
     foldLeft(itinerary.flights)(USD(0))(_ + _.price)
+
+  def totalPriceTailrec(itinerary: TentativeItinerary): Money = {
+    @annotation.tailrec
+    def helper(flights: Seq[Flight], accum: Money): Money = flights match {
+      case Seq() => accum
+      case Seq(f, rest @ _*) => helper(rest, f.price + accum)
+    }
+    helper(itinerary.flights, USD(0))
+  }
 }

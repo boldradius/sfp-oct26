@@ -12,7 +12,7 @@ class TailRecusion extends FreeSpec {
     "empty itinerary" - {
       "cost is zero" in {
         val itinerary = TentativeItinerary(Seq.empty)
-        assert(Reservations.totalPrice(itinerary) === USD(0))
+        assert(Reservations.totalPriceTailrec(itinerary) === USD(0))
       }
     }
     "non-empty itinerary" - {
@@ -24,7 +24,7 @@ class TailRecusion extends FreeSpec {
           arbitraryFlight("N123", leg1Price), arbitraryFlight("N234", leg2Price))
         val itinerary = TentativeItinerary(flights)
 
-        assert(Reservations.totalPrice(itinerary) === leg1Price + leg2Price)
+        assert(Reservations.totalPriceTailrec(itinerary) === leg1Price + leg2Price)
       }
     }
   }
