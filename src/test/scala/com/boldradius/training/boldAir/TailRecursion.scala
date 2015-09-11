@@ -8,7 +8,7 @@ class TailRecusion extends FreeSpec {
   import domain._
   import services._
 
-  "totalPrice computes the total flight cost, by summing the costs of the legs" - {
+  "totalPriceTailrec computes the total flight cost, by summing the costs of the legs" - {
     "empty itinerary" - {
       "cost is zero" in {
         val itinerary = TentativeItinerary(Seq.empty)
