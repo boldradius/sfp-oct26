@@ -1,4 +1,7 @@
 package com.boldradius.training.boldAir
 
-class ForAllSlidingAndPartialFunctions {
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
+
+class ForAllSlidingAndPartialFunctions extends FreeSpec with MustMatchers {
 }
