@@ -2,7 +2,7 @@ package com.boldradius.training.boldAir
 
 import org.scalatest.FreeSpec
 
-class PowerOfFoldingSpec extends FreeSpec {
+class FoldingSpec extends FreeSpec {
   import TestHelpers._
   import squants.market._
   import PowerOfFolding._
