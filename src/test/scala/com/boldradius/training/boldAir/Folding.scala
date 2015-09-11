@@ -6,9 +6,9 @@ class FoldingSpec extends FreeSpec {
   import TestHelpers._
   import squants.market._
   import domain._
+  import services.FlightPriceFold._
 
   "foldLeft" - {
-    import Folding._
 
     val initValue = USD(0)
     "summing a Seq of dollar ammounts" - {
@@ -23,13 +23,12 @@ class FoldingSpec extends FreeSpec {
     }
   }
 
-  "totalPriceFold computes the total flight cost, by summing the costs of the legs" - {
-    import services._
+  "totalPrice computes the total flight cost, by summing the costs of the legs" - {
 
     "empty itinerary" - {
       "cost is zero" in {
         val itinerary = TentativeItinerary(Seq.empty)
-        assert(Reservations.totalPriceFold(itinerary) === USD(0))
+        assert(totalPriceFold(itinerary) === USD(0))
       }
     }
     "non-empty itinerary" - {
@@ -41,7 +40,7 @@ class FoldingSpec extends FreeSpec {
           arbitraryFlight("N123", leg1Price), arbitraryFlight("N234", leg2Price))
         val itinerary = TentativeItinerary(flights)
 
-        assert(Reservations.totalPriceFold(itinerary) === leg1Price + leg2Price)
+        assert(totalPriceFold(itinerary) === leg1Price + leg2Price)
       }
     }
   }
