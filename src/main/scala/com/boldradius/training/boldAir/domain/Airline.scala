@@ -10,6 +10,6 @@ case class Airline(name: String, aircraft: Set[Aircraft])
 case class Seat(row: Int, position: String)
 case class Passenger(name: String)
 
-sealed trait LandingFacility
-final case object LandingStrip extends LandingFacility
-final case object LandingPad extends LandingFacility
+sealed trait LandingSurface
+final case object LandingStrip extends LandingSurface
+final case object LandingPad extends LandingSurface

@@ -10,7 +10,7 @@ object NonPlaneLandings {
   }
 
   trait Landable[A] {
-    def landingSurface(craft: A): LandingFacility
+    def landingSurface(craft: A): LandingSurface
   }
   object Landable {
     implicit object landableAircraftType extends Landable[AircraftType] {
@@ -22,11 +22,9 @@ object NonPlaneLandings {
     }
   }
 
-  //TODO: FIx: String -> Airport
-  def canLandAt[A](craft: A, airport: String)
-                  (implicit landableInstance: Landable[A]): Boolean = {
-    (landableInstance.landingSurface(craft) == LandingStrip)
-  }
+  def canLandAt[A](craft: A, airport: Airport)
+                  (implicit landableInstance: Landable[A]): Boolean =
+    airport.landingSurfaces contains landableInstance.landingSurface(craft)
 
 
 }
