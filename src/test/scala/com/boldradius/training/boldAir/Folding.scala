@@ -7,7 +7,7 @@ class FoldingSpec extends FreeSpec with MustMatchers {
   import TestHelpers._
   import squants.market._
   import domain._
-  import services.FlightPriceFold._
+  import FlightPriceFold._
 
   "foldLeft" - {
 

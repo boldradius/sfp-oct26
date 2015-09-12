@@ -72,8 +72,8 @@ class DomainTests extends FreeSpec {
     "a passenger" - {
       "has a name" in {
         val name = "Joe Smith"
-        val p = Passenger(name)
-        assert(p.name === name)
+        val passenger = Canadian(name)
+        assert(passenger.name === name)
       }
     }
     "a seat" - {

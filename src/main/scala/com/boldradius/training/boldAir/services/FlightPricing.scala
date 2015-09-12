@@ -1,4 +1,4 @@
-package com.boldradius.training.boldAir.services
+package com.boldradius.training.boldAir
 
 import com.boldradius.training.boldAir._
 import com.boldradius.training.boldAir.domain._
