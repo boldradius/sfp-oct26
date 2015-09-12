@@ -1,9 +1,9 @@
 package com.boldradius.training.boldAir.domain
 
 sealed trait AircraftType
-final case object MD11 extends AircraftType
-final case object `747` extends AircraftType
-final case object Ospray extends AircraftType
+case object MD11 extends AircraftType
+case object `747` extends AircraftType
+case object Ospray extends AircraftType
 
 case class Aircraft(aircraftType: AircraftType, id: String)
 case class Airline(name: String, aircraft: Set[Aircraft])
@@ -23,5 +23,5 @@ final case class American(name: String) extends Passenger
 
 
 sealed trait LandingSurface
-final case object LandingStrip extends LandingSurface
-final case object LandingPad extends LandingSurface
+case object LandingStrip extends LandingSurface
+case object LandingPad extends LandingSurface

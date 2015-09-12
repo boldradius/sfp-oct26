@@ -6,7 +6,7 @@ object NonPlaneLandings {
 
   object Helicopters {
     sealed trait HelicopterType
-    final case object Apache extends HelicopterType
+    case object Apache extends HelicopterType
   }
 
   trait Landable[A] {
