@@ -1,11 +1,12 @@
 package com.boldradius.training.boldAir.domain
 
 import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 import com.github.nscala_time.time.Imports._
 import squants.market._
 import com.boldradius.training.boldAir.TestHelpers._
 
-class DomainTests extends FreeSpec {
+class DomainTests extends FreeSpec with MustMatchers {
   "the example domain" - {
     "an airport" - {
       "has a code and name, and a set of gates" in {
@@ -16,10 +17,10 @@ class DomainTests extends FreeSpec {
         // to get better type inference:
         val landingSurfaces: Set[LandingSurface] = Set(LandingStrip, LandingPad)
         val airport = Airport(code, name, gates, landingSurfaces)
-        assert(airport.code === code)
-        assert(airport.name === name)
-        assert(airport.gates === gates)
-        assert(airport.landingSurfaces === landingSurfaces)
+        airport.code mustBe code
+        airport.name mustBe name
+        airport.gates mustBe gates
+        airport.landingSurfaces mustBe landingSurfaces
       }
     }
     "a gate" - {
@@ -27,15 +28,15 @@ class DomainTests extends FreeSpec {
         val id = "B14"
         val types: Set[AircraftType] = Set(MD11)
         val g = Gate(id, types)
-        assert(g.id === id)
-        assert(g.aircraftTypes === types)
+        g.id mustBe id
+        g.aircraftTypes mustBe types
       }
     }
     "an airline" - {
       "has a name and a set of aircraft" in {
         val dplanes = Set(Aircraft(MD11, "N1234"))
         val delta = Airline("Delta", dplanes)
-        assert(delta.aircraft === dplanes)
+        delta.aircraft mustBe dplanes
       }
     }
     "a flight" - {
@@ -44,9 +45,9 @@ class DomainTests extends FreeSpec {
         val sched = arbitrarySchedule
         val price = USD(300)
         val flight = Flight(aircraft, sched, price)
-        assert(flight.aircraft === aircraft)
-        assert(flight.schedule === sched)
-        assert(flight.price === price)
+        flight.aircraft mustBe aircraft
+        flight.schedule mustBe sched
+        flight.price mustBe price
       }
     }
     "an itinerary" - {
@@ -54,7 +55,7 @@ class DomainTests extends FreeSpec {
         "has a sequence of flights" in {
           val flights = Seq(arbitraryFlight("N123", USD(100)), arbitraryFlight("N234", USD(100)))
           val itin = TentativeItinerary(flights)
-          assert(itin.flights === flights)
+          itin.flights mustBe flights
         }
       }
       "a booked itinerary" - {
@@ -65,15 +66,15 @@ class DomainTests extends FreeSpec {
         val typ = MD11
         val id = "N1234"
         val dplane = Aircraft(typ, id)
-        assert(dplane.aircraftType === typ)
-        assert(dplane.id === id)
+        dplane.aircraftType mustBe typ
+        dplane.id mustBe id
       }
     }
     "a passenger" - {
       "has a name" in {
         val name = "Joe Smith"
         val passenger = Canadian(name)
-        assert(passenger.name === name)
+        passenger.name mustBe name
       }
     }
     "a seat" - {
@@ -81,8 +82,8 @@ class DomainTests extends FreeSpec {
         val row = 41
         val position = "F"
         val seat = Seat(row, position)
-        assert(seat.row === row)
-        assert(seat.position === position)
+        seat.row mustBe row
+        seat.position mustBe position
       }
     }
     "a schedule" - {
@@ -92,8 +93,8 @@ class DomainTests extends FreeSpec {
         val now = new DateTime()
         val later = new DateTime()
         val sched = Schedule((origin, now), (dest, later))
-        assert(sched.origin === (origin, now))
-        assert(sched.destination === (dest, later))
+        sched.origin mustBe (origin, now)
+        sched.destination mustBe (dest, later)
       }
     }
     "an airport code" - {
@@ -105,7 +106,7 @@ class DomainTests extends FreeSpec {
       "can be created from a string" in {
         val yxe = "YXE"
         def mkCode(code: AirportCode) = code
-        assert(mkCode(yxe) === AirportCode("YXE"))
+        mkCode(yxe) mustBe AirportCode("YXE")
       }
     }
   }

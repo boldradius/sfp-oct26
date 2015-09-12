@@ -15,14 +15,14 @@ class TypeClasses extends FreeSpec with MustMatchers {
       "jets" in {
         def jet: AircraftType = `747`
         def anotherJet: AircraftType = MD11
-        assert(canLandAt(jet, airport))
-        assert(canLandAt(anotherJet, airport))
+        canLandAt(jet, airport) mustBe true
+        canLandAt(anotherJet, airport) mustBe true
       }
     }
     "can accomodate anything that can land on a landing pad" - {
       "ospray" in {
         def ospray: AircraftType = Ospray
-        assert(canLandAt(ospray, airport))
+        canLandAt(ospray, airport) mustBe true
       }
       "helicopter" in {
         import Helicopters._
@@ -34,7 +34,7 @@ class TypeClasses extends FreeSpec with MustMatchers {
         }
 
         val apache: HelicopterType = Apache
-        assert(canLandAt(apache, airport))
+        canLandAt(apache, airport) mustBe true
       }
     }
   }
