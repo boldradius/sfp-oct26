@@ -7,7 +7,7 @@ class TailRecusion extends FreeSpec with MustMatchers {
   import TestHelpers._
   import squants.market._
   import domain._
-  import services.FlightPriceTailrec._
+  import FlightPriceTailrec._
 
   "totalPrice computes the total flight cost, by summing the costs of the legs" - {
     "empty itinerary" - {
