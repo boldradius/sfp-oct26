@@ -12,9 +12,14 @@ class DomainTests extends FreeSpec {
         val code = AirportCode("YXE")
         val name = "Saskatoon"
         val gates = Set(Gate("B12", Set(MD11)))
-        val airport = Airport(code, name, gates)
+        // Possibly an opportunity to introduce variance annotations
+        // to get better type inference:
+        val landingSurfaces: Set[LandingSurface] = Set(LandingStrip, LandingPad)
+        val airport = Airport(code, name, gates, landingSurfaces)
         assert(airport.code === code)
         assert(airport.name === name)
+        assert(airport.gates === gates)
+        assert(airport.landingSurfaces === landingSurfaces)
       }
     }
     "a gate" - {
