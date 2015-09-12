@@ -72,7 +72,7 @@ class DomainTests extends FreeSpec {
     "a passenger" - {
       "has a name" in {
         val name = "Joe Smith"
-        val passenger = Male(name)
+        val passenger = Canadian(name)
         assert(passenger.name === name)
       }
     }

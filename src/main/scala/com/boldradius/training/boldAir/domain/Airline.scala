@@ -11,8 +11,8 @@ case class Seat(row: Int, position: String)
 
 
 sealed trait Passenger
-final case class Male(name: String) extends Passenger
-final case class Female(name: String) extends Passenger
+final case class Canadian(name: String) extends Passenger
+final case class American(name: String) extends Passenger
 
 
 sealed trait LandingSurface

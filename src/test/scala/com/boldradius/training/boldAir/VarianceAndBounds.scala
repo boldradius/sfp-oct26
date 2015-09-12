@@ -8,26 +8,26 @@ class VarianceAndBounds extends FreeSpec with MustMatchers {
   import domain._
 
   "boarding queue" - {
-    val tom = Male("Tom")
+    val tom = Canadian("Tom")
     val boardingQueue = BoardingQueue(tom)
     "enqueuing an arbitary Object" - {
       "fails compilation" in {
         """boardingQueue.enqueue("arbitrary")""" mustNot compile
       }
     }
-    "enqueuing another male passenger" - {
-      "yields a BoardingQueue[Male]" in {
-        type QueueOfMales = BoardingQueue[Male]
-        val joe = Male("Joe")
-        boardingQueue.enqueue(joe) mustBe a[QueueOfMales]
+    "enqueuing another Canadian passenger" - {
+      "yields a BoardingQueue[Canadian]" in {
+        type QueueOfCanadians = BoardingQueue[Canadian]
+        val joe = Canadian("Joe")
+        boardingQueue.enqueue(joe) mustBe a[QueueOfCanadians]
       }
     }
-    "enqueuing a female passenger" - {
-      "yields a BoardingQueue[Male]" in {
+    "enqueuing an American passenger" - {
+      "yields a BoardingQueue[Canadian]" in {
         type QueueOfPassengers = BoardingQueue[Passenger]
-        type QueueOfMales = BoardingQueue[Male]
-        val sally = Female("Sally")
-        boardingQueue.enqueue(sally) mustBe a[QueueOfMales]
+        type QueueOfCanadians = BoardingQueue[Canadian]
+        val sally = American("Sally")
+        boardingQueue.enqueue(sally) mustBe a[QueueOfCanadians]
       }
     }
   }
