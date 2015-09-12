@@ -1,7 +1,7 @@
-package com.boldradius.training.boldAir
+package training.scala.air_scala
 
-import com.boldradius.training.boldAir._
-import com.boldradius.training.boldAir.domain._
+import training.scala.air_scala._
+import training.scala.air_scala.domain._
 import com.github.nscala_time.time.Imports._
 import squants.market._
 

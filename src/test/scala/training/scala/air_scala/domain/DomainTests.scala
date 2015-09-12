@@ -1,9 +1,9 @@
-package com.boldradius.training.boldAir.domain
+package training.scala.air_scala.domain
 
 import org.scalatest.FreeSpec
 import com.github.nscala_time.time.Imports._
 import squants.market._
-import com.boldradius.training.boldAir.TestHelpers._
+import training.scala.air_scala.TestHelpers._
 
 class DomainTests extends FreeSpec {
   "the example domain" - {

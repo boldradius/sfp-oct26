@@ -1,4 +1,4 @@
-package com.boldradius.training.boldAir
+package training.scala.air_scala
 
 object TestHelpers {
   import com.github.nscala_time.time.Imports._

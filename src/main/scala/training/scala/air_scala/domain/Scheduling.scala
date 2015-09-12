@@ -1,4 +1,4 @@
-package com.boldradius.training.boldAir.domain
+package training.scala.air_scala.domain
 
 import com.github.nscala_time.time.Imports._
 import squants.market._

@@ -1,4 +1,4 @@
-package com.boldradius.training.boldAir.domain
+package training.scala.air_scala.domain
 
 sealed trait AircraftType
 case object MD11 extends AircraftType
