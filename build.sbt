@@ -56,6 +56,11 @@ lazy val root =  project.in( file(".") )
       }
   )
 
+initialCommands in console := """
+import com.boldradius.training.boldAir._ 
+import com.boldradius.training.boldAir.domain._ 
+"""
+
 
 
 
