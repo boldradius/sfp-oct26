@@ -4,5 +4,5 @@ import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 
 class SeqLike extends FreeSpec with MustMatchers {
-  //Implement `SeqLike`
+  // TODO: Have Students implement `SeqLike`
 }
