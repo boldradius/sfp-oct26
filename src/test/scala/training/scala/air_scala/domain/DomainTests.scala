@@ -25,7 +25,7 @@ class DomainTests extends FreeSpec {
     "a gate" - {
       "has an identifier and a set of aircraft types" in {
         val id = "B14"
-        val types: Set[AircraftType] = Set(MD11)
+        val types: Set[AircraftModel] = Set(MD11)
         val g = Gate(id, types)
         assert(g.id === id)
         assert(g.aircraftTypes === types)
@@ -65,7 +65,7 @@ class DomainTests extends FreeSpec {
         val typ = MD11
         val id = "N1234"
         val dplane = Aircraft(typ, id)
-        assert(dplane.aircraftType === typ)
+        assert(dplane.aircraftModel === typ)
         assert(dplane.id === id)
       }
     }

@@ -13,11 +13,11 @@ object NonPlaneLandings {
     def landingSurface(craft: A): LandingSurface
   }
   object Landable {
-    implicit object landableAircraftType extends Landable[AircraftType] {
-      def landingSurface(a: AircraftType) = a match {
+    implicit object landableAircraftType extends Landable[AircraftModel] {
+      def landingSurface(a: AircraftModel) = a match {
         case MD11   => LandingStrip
-        case `747`  => LandingStrip
-        case Ospray => LandingPad
+        case B747  => LandingStrip
+        case V22Osprey => LandingPad
       }
     }
   }

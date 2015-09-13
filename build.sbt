@@ -4,6 +4,9 @@ name := "air-scala"
 
 scalaVersion := Version.scala
 
+// The Typesafe repository
+resolvers += "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases/"
+
 libraryDependencies ++= Dependencies.airScala
 
 
@@ -42,7 +45,6 @@ parallelExecution in Test := false
 
 parallelExecution in ThisBuild := false
 
-libraryDependencies ++= Dependencies.airScala
 
 
 // Eclipse settings to ease the pain

@@ -1,7 +1,6 @@
 package training.scala.air_scala
 
 object FrequentFlyerMilesImplicitClass {
-  import scala.language.implicitConversions
 
   implicit class FrequentFlyerMile(val value: Int) extends AnyVal {
     def +(that: FrequentFlyerMile): FrequentFlyerMile =
@@ -13,7 +12,6 @@ object FrequentFlyerMilesImplicitClass {
 }
 
 object FrequentFlyerMilesValueClass {
-  import scala.language.implicitConversions
 
   def enoughForCancun(miles: FrequentFlyerMile): Boolean =
     miles.value >= 10000
