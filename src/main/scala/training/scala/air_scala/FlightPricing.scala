@@ -5,25 +5,27 @@ import training.scala.air_scala.domain._
 import com.github.nscala_time.time.Imports._
 import squants.market._
 
+import scala.annotation.tailrec
+
 object FlightPriceTailrec {
   def totalPrice(itinerary: TentativeItinerary): Money = {
-    @annotation.tailrec
-    def helper(flights: Seq[Flight], accum: Money): Money = flights match {
-      case Seq() => accum
-      case Seq(f, rest @ _*) => helper(rest, f.price + accum)
+    @tailrec
+    def totalPriceF(flights: Seq[Flight], accum: Money): Money = flights match {
+      case flight +: oFlights => totalPriceF(oFlights, flight.price + accum)
+      case _ => accum
     }
-    helper(itinerary.flights, USD(0))
+    totalPriceF(itinerary.flights, USD(0))
   }
 }
 
 object FlightPriceFold {
-  def foldLeft[A,B](seq: Seq[A])(initValue: B)(fn: (B,A) => B) = {
-    @annotation.tailrec
-    def helper(accum: B, seq: Seq[A]): B = seq match {
-      case Seq() => accum
-      case Seq(value, rest @ _*) => helper(fn(accum, value), rest)
+  def foldLeft[A,B](seq: Seq[A])(initValue: B)(f: (B,A) => B) = {
+    @tailrec
+    def foldLeftF(accum: B, seq: Seq[A]): B = seq match {
+      case elem +: tail => foldLeftF(f(accum, elem), tail)
+      case _ => accum
     }
-    helper(initValue, seq)
+    foldLeftF(initValue, seq)
   }
 
   def totalPriceFold(itinerary: TentativeItinerary): Money =
