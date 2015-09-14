@@ -2,6 +2,7 @@ package training.scala.air_scala
 
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
+import training.scala.air_scala.flights.scheduling.TentativeItinerary
 
 class FoldingSpec extends FreeSpec with MustMatchers {
   import TestHelpers._

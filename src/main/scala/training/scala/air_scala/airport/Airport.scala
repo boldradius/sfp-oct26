@@ -1,16 +1,14 @@
-package training.scala.air_scala.domain
+package training.scala.air_scala.airport
+
+import training.scala.air_scala.aircraft.AircraftModel
 
 case class Airport(code: AirportCode,
                    name: String,
                    gates: Set[Gate],
                    landingSurfaces: Set[LandingSurface])
 
-object AirportCode {
-  implicit def toCode(str: String): AirportCode = AirportCode(str)
-}
-case class AirportCode(str: String) {
-  require(str.matches("[A-Z]{3}"), "Airport Code must consist of 3 uppercase letters.")
-}
+
 
 // todo - should we have terminal id & gate id?
+// todo - this should be aircraft CLASS
 case class Gate(id: String, aircraftTypes: Set[AircraftModel])

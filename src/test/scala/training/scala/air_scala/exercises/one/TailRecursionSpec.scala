@@ -1,6 +1,7 @@
 package training.scala.air_scala.exercises.one
 
 import org.scalatest.{FreeSpec, MustMatchers}
+import training.scala.air_scala.flights.scheduling.TentativeItinerary
 import training.scala.air_scala.{FlightPriceTailrec, TestHelpers, domain}
 
 class TailRecursionSpec extends FreeSpec with MustMatchers {

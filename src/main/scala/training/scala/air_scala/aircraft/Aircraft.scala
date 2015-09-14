@@ -1,4 +1,5 @@
-package training.scala.air_scala.domain
+package training.scala.air_scala.aircraft
+
 
 // To be used Later, maybe for abstract types
 sealed trait AircraftManufacturer
@@ -10,27 +11,14 @@ case object McDonnellDouglas extends AircraftManufacturer
 // todo: engine type - TurboProp, Jet, Tiltrotor
 
 sealed trait AircraftModel
+
 case object MD11 extends AircraftModel
 case object B747 extends AircraftModel
 case object V22Osprey extends AircraftModel
 
 case class Aircraft(aircraftModel: AircraftModel, id: String)
+
 case class Airline(name: String, aircraft: Set[Aircraft])
+
 case class Seat(row: Int, position: String)
 
-
-/**
- * Perfect core for future exercise regarding Abstract Types...
- * Passenger would have an abstract type Nationality, which would
- * need to be filled in on a concrete instance of Passenger
- *
- * Also, add "FrequentFlyer" info... maybe instead?
- */
-sealed trait Passenger
-case class Canadian(name: String) extends Passenger
-case class American(name: String) extends Passenger
-
-
-sealed trait LandingSurface
-case object LandingStrip extends LandingSurface
-case object LandingPad extends LandingSurface

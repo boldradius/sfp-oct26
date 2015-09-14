@@ -1,7 +1,8 @@
 package training.scala.air_scala
 
 object Boarding {
-  import domain.Passenger
+
+  import training.scala.air_scala.airline.Passenger
 
   object BoardingQueue {
 

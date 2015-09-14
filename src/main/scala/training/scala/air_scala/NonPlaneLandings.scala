@@ -1,8 +1,11 @@
 package training.scala.air_scala
 
+import training.scala.air_scala.aircraft.{B747, V22Osprey, MD11, AircraftModel}
+import training.scala.air_scala.airline._
+import training.scala.air_scala.airport.{LandingPad, LandingStrip, LandingSurface, Airport}
+
 
 object NonPlaneLandings {
-  import domain._
 
   object Helicopters {
     sealed trait HelicopterType

@@ -1,8 +1,9 @@
-package training.scala.air_scala.domain
+package training.scala.air_scala.flights.scheduling
 
 import com.github.nscala_time.time.Imports._
-import squants.market._
+import training.scala.air_scala.airport.AirportCode
+import training.scala.air_scala.flights.Flight
 
 case class Schedule(origin: (AirportCode, DateTime), destination: (AirportCode, DateTime))
-case class Flight(aircraft: Aircraft, schedule: Schedule, price: Money)
+
 case class TentativeItinerary(flights: Seq[Flight])

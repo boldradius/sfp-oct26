@@ -2,6 +2,7 @@ package training.scala.air_scala
 
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
+import training.scala.air_scala.airline.{American, Canadian, Passenger}
 
 class VarianceAndBoundsSpec extends FreeSpec with MustMatchers {
   import Boarding._

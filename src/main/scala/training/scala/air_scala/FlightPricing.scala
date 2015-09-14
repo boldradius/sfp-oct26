@@ -1,9 +1,10 @@
 package training.scala.air_scala
 
 import training.scala.air_scala._
-import training.scala.air_scala.domain._
 import com.github.nscala_time.time.Imports._
 import squants.market._
+import training.scala.air_scala.flights.Flight
+import training.scala.air_scala.flights.scheduling.TentativeItinerary
 
 import scala.annotation.tailrec
 

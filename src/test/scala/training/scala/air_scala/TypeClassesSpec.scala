@@ -2,6 +2,9 @@ package training.scala.air_scala
 
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
+import training.scala.air_scala.aircraft.{V22Osprey, MD11, AircraftModel, B747}
+import training.scala.air_scala.airline._
+import training.scala.air_scala.airport.{LandingPad, LandingStrip, Gate, Airport}
 
 class TypeClassesSpec extends FreeSpec with MustMatchers {
   import domain._
