@@ -66,7 +66,7 @@ class DomainTests extends FreeSpec with MustMatchers {
         val typ = MD11
         val id = "N1234"
         val dplane = Aircraft(typ, id)
-        dplane.aircraftType mustBe typ
+        dplane.aircraftModel mustBe typ
         dplane.id mustBe id
       }
     }

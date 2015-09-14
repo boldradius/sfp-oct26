@@ -22,7 +22,7 @@ class TypeClassesSpec extends FreeSpec with MustMatchers {
     "can accomodate anything that can land on a landing pad" - {
       "osprey" in {
         def osprey: AircraftModel = V22Osprey
-        canLandAt(ospray, airport) mustBe true
+        canLandAt(osprey, airport) mustBe true
       }
       "helicopter" in {
         import Helicopters._
