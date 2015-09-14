@@ -6,3 +6,8 @@ Authors:
 - Michael Nash
 - Andrew Mohrland
 - Brendan McAdams
+
+TODO:
+  - `man` command for exercise instructions
+  - `koan` support
+

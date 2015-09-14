@@ -1,13 +1,13 @@
-package training.scala.air_scala
+package training.scala.air_scala.exercises.one
 
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.{FreeSpec, MustMatchers}
+import training.scala.air_scala.{FlightPriceTailrec, TestHelpers, domain}
 
 class TailRecursionSpec extends FreeSpec with MustMatchers {
-  import TestHelpers._
-  import squants.market._
-  import domain._
   import FlightPriceTailrec._
+  import TestHelpers._
+  import domain._
+  import squants.market._
 
   "totalPrice computes the total flight cost, by summing the costs of the legs" - {
     "empty itinerary" - {
