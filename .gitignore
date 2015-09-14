@@ -15,3 +15,12 @@ project/plugins/project/
 # Scala-IDE specific
 .scala_dependencies
 .worksheet
+
+# IntelliJ Specific
+*.ipr
+*.iml
+.idea/
+
+# Vim Specific
+*.swp
+*.swo
