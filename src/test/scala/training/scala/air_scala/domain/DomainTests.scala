@@ -9,7 +9,7 @@ import training.scala.air_scala.aircraft._
 import training.scala.air_scala.airline.Canadian
 import training.scala.air_scala.airport._
 import training.scala.air_scala.flights.Flight
-import training.scala.air_scala.flights.scheduling.{Schedule, TentativeItinerary}
+import training.scala.air_scala.flights.scheduling.{Schedule, ProposedItinerary}
 
 class DomainTests extends FreeSpec with MustMatchers {
   "the example domain" - {
@@ -59,7 +59,7 @@ class DomainTests extends FreeSpec with MustMatchers {
       "a tentative itinerary" - {
         "has a sequence of flights" in {
           val flights = Seq(arbitraryFlight("N123", USD(100)), arbitraryFlight("N234", USD(100)))
-          val itin = TentativeItinerary(flights)
+          val itin = ProposedItinerary(flights)
           itin.flights mustBe flights
         }
       }

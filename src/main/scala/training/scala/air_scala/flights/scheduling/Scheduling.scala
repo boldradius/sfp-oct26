@@ -6,4 +6,4 @@ import training.scala.air_scala.flights.Flight
 
 case class Schedule(origin: (AirportCode, DateTime), destination: (AirportCode, DateTime))
 
-case class TentativeItinerary(flights: Seq[Flight])
+case class ProposedItinerary(flights: Seq[Flight])

@@ -2,7 +2,7 @@ package training.scala.air_scala
 
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
-import training.scala.air_scala.flights.scheduling.TentativeItinerary
+import training.scala.air_scala.flights.scheduling.ProposedItinerary
 
 class FoldingSpec extends FreeSpec with MustMatchers {
   import TestHelpers._
@@ -29,7 +29,7 @@ class FoldingSpec extends FreeSpec with MustMatchers {
 
     "empty itinerary" - {
       "cost is zero" in {
-        val itinerary = TentativeItinerary(Seq.empty)
+        val itinerary = ProposedItinerary(Seq.empty)
         totalPriceFold(itinerary) mustBe USD(0)
       }
     }
@@ -40,7 +40,7 @@ class FoldingSpec extends FreeSpec with MustMatchers {
 
         val flights = Seq(
           arbitraryFlight("N123", leg1Price), arbitraryFlight("N234", leg2Price))
-        val itinerary = TentativeItinerary(flights)
+        val itinerary = ProposedItinerary(flights)
 
         totalPriceFold(itinerary) mustBe leg1Price + leg2Price
       }

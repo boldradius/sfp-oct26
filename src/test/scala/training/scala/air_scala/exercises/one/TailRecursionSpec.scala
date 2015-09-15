@@ -1,7 +1,7 @@
 package training.scala.air_scala.exercises.one
 
 import org.scalatest.{FreeSpec, MustMatchers}
-import training.scala.air_scala.flights.scheduling.TentativeItinerary
+import training.scala.air_scala.flights.scheduling.ProposedItinerary
 import training.scala.air_scala.{FlightPriceTailrec, TestHelpers, domain}
 
 class TailRecursionSpec extends FreeSpec with MustMatchers {
@@ -10,10 +10,19 @@ class TailRecursionSpec extends FreeSpec with MustMatchers {
   import domain._
   import squants.market._
 
+  /*
+   * Thoughts on valid workthroughs with recursion...
+   *
+   * Find cheapest itinerary
+   * Find itinerary with least connections
+   * Find itinerary with best layover options
+   * Find itinerary that I'll earn frequent flyer miles on
+   * Is itinerary roundtrip?
+   */
   "totalPrice computes the total flight cost, by summing the costs of the legs" - {
     "empty itinerary" - {
       "cost is zero" in {
-        val itinerary = TentativeItinerary(Seq.empty)
+        val itinerary = ProposedItinerary(Seq.empty)
         totalPrice(itinerary) mustBe USD(0)
       }
     }
@@ -24,7 +33,7 @@ class TailRecursionSpec extends FreeSpec with MustMatchers {
 
         val flights = Seq(
           arbitraryFlight("N123", leg1Price), arbitraryFlight("N234", leg2Price))
-        val itinerary = TentativeItinerary(flights)
+        val itinerary = ProposedItinerary(flights)
 
         totalPrice(itinerary) mustBe leg1Price + leg2Price
       }

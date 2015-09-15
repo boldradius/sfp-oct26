@@ -4,12 +4,12 @@ import training.scala.air_scala._
 import com.github.nscala_time.time.Imports._
 import squants.market._
 import training.scala.air_scala.flights.Flight
-import training.scala.air_scala.flights.scheduling.TentativeItinerary
+import training.scala.air_scala.flights.scheduling.ProposedItinerary
 
 import scala.annotation.tailrec
 
 object FlightPriceTailrec {
-  def totalPrice(itinerary: TentativeItinerary): Money = {
+  def totalPrice(itinerary: ProposedItinerary): Money = {
     @tailrec
     def totalPriceF(flights: Seq[Flight], accum: Money): Money = flights match {
       case flight +: oFlights => totalPriceF(oFlights, flight.price + accum)
@@ -29,6 +29,6 @@ object FlightPriceFold {
     foldLeftF(initValue, seq)
   }
 
-  def totalPriceFold(itinerary: TentativeItinerary): Money =
+  def totalPriceFold(itinerary: ProposedItinerary): Money =
     foldLeft(itinerary.flights)(USD(0))(_ + _.price)
 }
