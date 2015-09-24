@@ -20,17 +20,11 @@ object Itinerary {
     totalPriceF(itinerary.flights, USD(0))
   }
 
-  def totalMilesEarned(itinerary: Itinerary): Double = {
-    val totals = itinerary.flights.sliding(2) map {
-      case f1 +: f2 +: _ =>
-        println(s"F1: $f1 F2: $f2")
-        f1.miles.toNauticalMiles + f2.miles.toNauticalMiles
-      case _ => 0.0
+  def isScheduleIncreasing(itinerary: Itinerary): Boolean = {
+    itinerary.flights.sliding(2).forall {
+      case f1 +: f2 +: _ => f1 < f2
+      case _ => true
     }
-    val totalsV = totals.toVector
-    println(totalsV)
-    println(totalsV.sum)
-    totalsV.sum
   }
 }
 
