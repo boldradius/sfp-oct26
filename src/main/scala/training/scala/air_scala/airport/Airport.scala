@@ -7,8 +7,7 @@ case class Airport(code: AirportCode,
                    gates: Set[Gate],
                    landingSurfaces: Set[LandingSurface])
 
-
-
-// todo - should we have terminal id & gate id?
-// todo - this should be aircraft CLASS
-case class Gate(id: String, aircraftTypes: Set[AircraftModel])
+// Let's just make all terminals by Character Code.
+case class Gate(terminal: Char,
+                id: String,
+                aircraftTypes: Set[AircraftModel])
