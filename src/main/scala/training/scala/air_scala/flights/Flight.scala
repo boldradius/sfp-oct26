@@ -1,9 +1,12 @@
 package training.scala.air_scala.flights
 
+import org.joda.time.DateTime
 import squants.market.Money
 import training.scala.air_scala.aircraft.Aircraft
-import training.scala.air_scala.airport.Gate
+import training.scala.air_scala.airport.{AirportCode, Gate}
 import training.scala.air_scala.flights.scheduling._
+import com.github.nscala_time.time.Imports._
+import squants.market._
 
 /*
  __ Implementation Note __
@@ -14,8 +17,6 @@ import training.scala.air_scala.flights.scheduling._
 class Flight(val number: FlightNumber,
              val aircraft: Aircraft,
              val schedule: Schedule,
-             val departureGate: Gate,
-             val arrivalGate: Gate,
              val price: Money)
 
 case class FlightNumber(airlineCode: String, number: Int) {
@@ -24,3 +25,8 @@ case class FlightNumber(airlineCode: String, number: Int) {
   require(number > 0 && number < 8999,
           "Flight Number be between 1 & 8999")
 }
+
+case class FlightLeg(code: AirportCode, departureTime: DateTime)
+
+case class Schedule(origin: FlightLeg, destination: FlightLeg)
+

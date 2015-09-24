@@ -9,14 +9,6 @@ import training.scala.air_scala.flights.scheduling.ProposedItinerary
 import scala.annotation.tailrec
 
 object FlightPriceTailrec {
-  def totalPrice(itinerary: ProposedItinerary): Money = {
-    @tailrec
-    def totalPriceF(flights: Seq[Flight], accum: Money): Money = flights match {
-      case flight +: oFlights => totalPriceF(oFlights, flight.price + accum)
-      case _ => accum
-    }
-    totalPriceF(itinerary.flights, USD(0))
-  }
 }
 
 object FlightPriceFold {

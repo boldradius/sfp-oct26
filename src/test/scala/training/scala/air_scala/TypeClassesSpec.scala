@@ -2,14 +2,12 @@ package training.scala.air_scala
 
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
-import training.scala.air_scala.aircraft.{V22Osprey, MD11, AircraftModel, B747}
 import training.scala.air_scala.airline._
-import training.scala.air_scala.airport.{LandingPad, LandingStrip, Gate, Airport}
 
 class TypeClassesSpec extends FreeSpec with MustMatchers {
   import domain._
-  import NonPlaneLandings._
 
+/*
   val airport = Airport("LAS", "McCarran", Set(Gate("A", Set(B747))),
                         Set(LandingStrip, LandingPad))
 
@@ -40,5 +38,5 @@ class TypeClassesSpec extends FreeSpec with MustMatchers {
         canLandAt(apache, airport) mustBe true
       }
     }
-  }
+  }*/
 }

@@ -5,9 +5,8 @@ import org.scalatest.MustMatchers
 import training.scala.air_scala.flights.scheduling.ProposedItinerary
 
 class FoldingSpec extends FreeSpec with MustMatchers {
-  import TestHelpers._
+  import TestData._
   import squants.market._
-  import domain._
   import FlightPriceFold._
 
   "foldLeft" - {
@@ -35,14 +34,13 @@ class FoldingSpec extends FreeSpec with MustMatchers {
     }
     "non-empty itinerary" - {
       "cost is sum of legs" in {
-        val leg1Price = USD(100)
-        val leg2Price = USD(200)
 
         val flights = Seq(
-          arbitraryFlight("N123", leg1Price), arbitraryFlight("N234", leg2Price))
+          sfoToEwrSegment, ewrToSfoSegment
+        )
         val itinerary = ProposedItinerary(flights)
 
-        totalPriceFold(itinerary) mustBe leg1Price + leg2Price
+        totalPriceFold(itinerary) mustBe flights(0).price + flights(1).price
       }
     }
   }

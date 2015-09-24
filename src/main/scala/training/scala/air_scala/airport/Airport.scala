@@ -1,6 +1,6 @@
 package training.scala.air_scala.airport
 
-import training.scala.air_scala.aircraft.AircraftModel
+import training.scala.air_scala.aircraft.{AircraftClass, AircraftModel}
 
 case class Airport(code: AirportCode,
                    name: String,
@@ -10,4 +10,4 @@ case class Airport(code: AirportCode,
 // Let's just make all terminals by Character Code.
 case class Gate(terminal: Char,
                 id: String,
-                aircraftTypes: Set[AircraftModel])
+                aircraftClasses: Set[AircraftClass])

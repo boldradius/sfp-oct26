@@ -32,7 +32,7 @@ trait AircraftModel { self: AircraftClass =>
   def seats: Map[SeatingClass, Vector[Seat]]
 }
 
-case class Aircraft(model: AircraftModel, id: String)
+case class Aircraft(model: AircraftModel)
 
 case class Airline(name: String, aircraft: Set[Aircraft])
 

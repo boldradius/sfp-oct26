@@ -9,10 +9,9 @@ import training.scala.air_scala.aircraft._
 import training.scala.air_scala.airline.Canadian
 import training.scala.air_scala.airport._
 import training.scala.air_scala.flights.Flight
-import training.scala.air_scala.flights.scheduling.{Schedule, ProposedItinerary}
 
 class DomainTests extends FreeSpec with MustMatchers {
-  "the example domain" - {
+/*  "the example domain" - {
     "an airport" - {
       "has a code and name, and a set of gates" in {
         val code = AirportCode("YXE")
@@ -114,6 +113,6 @@ class DomainTests extends FreeSpec with MustMatchers {
         mkCode(yxe) mustBe AirportCode("YXE")
       }
     }
-  }
+  }*/
 
 }
