@@ -30,12 +30,16 @@ class TailRecursionSpec extends FreeSpec with MustMatchers {
 
         val flights = Seq(
           sfoToEwrSegment,
-          ewrToSfoSegment
+          ewrToLhrSegment,
+          lhrToEWRSegment,
+          ewrToSFOSegment
         )
+
         val itinerary = ProposedItinerary(flights)
 
         Itinerary.totalPrice(itinerary) mustBe (
-          sfoToEwrSegment.price + ewrToSfoSegment.price
+          sfoToEwrSegment.price + ewrToLhrSegment.price +
+            lhrToEWRSegment.price + ewrToSFOSegment.price
         )
       }
     }
