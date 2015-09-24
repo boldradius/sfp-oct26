@@ -10,4 +10,4 @@ For this exercise, we are going to demonstrate the use of Tail Recursive Methods
   + **HINT**: We will use a Squants `Money` instance for price (they should already be in `Flight`)
 - **NOTE**: You must make your method tail recurisve.
 - Use the `test` command to verify the provided tests pass.
-
+- Use `koan next` to move to the next exercise.
