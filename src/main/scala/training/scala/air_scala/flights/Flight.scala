@@ -6,7 +6,9 @@ import training.scala.air_scala.aircraft.Aircraft
 import training.scala.air_scala.airport.{AirportCode, Gate}
 import training.scala.air_scala.flights.scheduling._
 import com.github.nscala_time.time.Imports._
+import squants._
 import squants.market._
+import squants.space._
 
 /*
  __ Implementation Note __
@@ -17,7 +19,9 @@ import squants.market._
 class Flight(val number: FlightNumber,
              val aircraft: Aircraft,
              val schedule: Schedule,
-             val price: Money)
+             val price: Money,
+             val miles: NauticalMiles)
+
 
 case class FlightNumber(airlineCode: String, number: Int) {
   require(airlineCode.matches("[A-Z]{1-3}"),
