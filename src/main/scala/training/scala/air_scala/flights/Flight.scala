@@ -20,7 +20,10 @@ class Flight(val number: FlightNumber,
              val aircraft: Aircraft,
              val schedule: Schedule,
              val price: Money,
-             val miles: Length)
+             val miles: Length) {
+  override val toString = s"Flight { number: $number, aircraft: $aircraft, schedule: $schedule, " +
+    s"price: $price, miles: $miles }"
+}
 
 
 case class FlightNumber(airlineCode: String, number: Int) {
