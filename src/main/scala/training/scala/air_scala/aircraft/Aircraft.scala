@@ -29,7 +29,8 @@ trait WideBodyJet extends AircraftClass {
 
 // todo: should we explain self type annotations?
 trait AircraftModel { self: AircraftClass =>
-  def seats: Map[SeatingClass, Vector[Seat]]
+  def seats: Map[SeatingClass, Seq[Seat]]
+
 }
 
 case class Aircraft(model: AircraftModel)

@@ -8,15 +8,19 @@ import com.github.nscala_time.time.Imports._
 import squants.market._
 import MoneyConversions._
 
+import scala.collection.immutable.HashMap
+
 object TestData {
 
   case object CRJ200 extends AircraftModel with TurboProp {
-    val seats = Map[SeatingClass, Seat](
+    val seats = HashMap[SeatingClass, Vector[Seat]](
+      FirstClass -> Vector.empty[Seat],
+      BusinessClass -> Vector.empty[Seat],
       EconomyPlus -> Vector(
         EconomyPlusSeat(1, 'A'), EconomyPlusSeat(1, 'B'), EconomyPlusSeat(1, 'C'),
         EconomyPlusSeat(2, 'A'), EconomyPlusSeat(2, 'B'), EconomyPlusSeat(2, 'C'),
         EconomyPlusSeat(3, 'A'), EconomyPlusSeat(3, 'B'), EconomyPlusSeat(3, 'C'),
-        EconomyPlusSeat(4, 'A'), EconomyPlusSeat(4, 'B'), EconomyPlusSeat(4, 'C')
+        EconomyPlusSeat(4, 'A' ), EconomyPlusSeat(4, 'B'), EconomyPlusSeat(4, 'C')
       ),
       Economy -> Vector(
         EconomySeat(5, 'A'), EconomySeat(5, 'B'), EconomySeat(5, 'C'),
@@ -33,7 +37,8 @@ object TestData {
   }
 
   case object MD11 extends AircraftModel with WideBodyJet {
-    val seats = Map(
+    val seats = HashMap[SeatingClass, Vector[Seat]](
+      FirstClass -> Vector.empty[Seat],
       BusinessClass -> Vector(
         BusinessClassSeat(1, 'A'), BusinessClassSeat(1, 'B'), BusinessClassSeat(1, 'C'), BusinessClassSeat(1, 'D'),
         BusinessClassSeat(2, 'A'), BusinessClassSeat(2, 'B'), BusinessClassSeat(2, 'C'), BusinessClassSeat(2, 'D'),
@@ -154,7 +159,7 @@ object TestData {
   }
 
   case object B747 extends AircraftModel with WideBodyJet {
-    val seats = Map(
+    val seats = HashMap[SeatingClass, Vector[Seat]](
       FirstClass -> Vector(
         FirstClassSeat(1, 'A'), FirstClassSeat(1, 'D'),
         FirstClassSeat(2, 'A'), FirstClassSeat(2, 'D'),
