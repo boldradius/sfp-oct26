@@ -1,24 +1,79 @@
 package training.scala.air_scala.aircraft
 
+import training.scala.air_scala.airport.{LongRunway, MediumRunway, ShortRunway, LandingSurface}
+
 
 // To be used Later, maybe for abstract types
 sealed trait AircraftManufacturer
 case object Boeing extends AircraftManufacturer
 case object McDonnellDouglas extends AircraftManufacturer
+case object Airbus extends AircraftManufacturer
+case object Bombardier extends AircraftManufacturer
 
-// todo: subtypes of aircraft. We should have rotary, fixed wing,
-// todo: and VSTOL (e.g. V22 Osprey, Marine Corp Spec F35, & AV8B Harrier)
-// todo: engine type - TurboProp, Jet, Tiltrotor
+sealed trait AircraftClass {
+  val runwayType: LandingSurface
+}
 
-sealed trait AircraftModel
+trait TurboProp extends AircraftClass {
+  val runwayType = ShortRunway
+}
 
-case object MD11 extends AircraftModel
-case object B747 extends AircraftModel
-case object V22Osprey extends AircraftModel
+trait NarrowBodyJet extends AircraftClass {
+  val runwayType = MediumRunway
+}
 
-case class Aircraft(aircraftModel: AircraftModel, id: String)
+trait WideBodyJet extends AircraftClass {
+  val runwayType = LongRunway
+}
+
+
+// todo: should we explain self type annotations?
+trait AircraftModel { self: AircraftClass =>
+  def seats: Map[SeatingClass, Vector[Seat]]
+}
+
+case class Aircraft(model: AircraftModel, id: String)
 
 case class Airline(name: String, aircraft: Set[Aircraft])
 
-case class Seat(row: Int, position: String)
+sealed trait SeatingClass {
+  val priority: Int
+}
 
+case object FirstClass extends SeatingClass {
+  val priority = 1
+}
+
+case object BusinessClass extends SeatingClass {
+  val priority = 2
+}
+
+case object EconomyPlus extends SeatingClass {
+  val priority = 3
+}
+
+case object Economy extends SeatingClass {
+  val priority = 4
+}
+
+sealed trait Seat {
+  val row: Int
+  val seat: Char
+  val seatingClass: SeatingClass
+}
+
+case class FirstClassSeat(row: Int, seat: Char) extends Seat {
+  final val seatingClass = FirstClass
+}
+
+case class BusinessClassSeat(row: Int, seat: Char) extends Seat {
+  final val seatingClass = BusinessClass
+}
+
+case class EconomyPlusSeat(row: Int, seat: Char) extends Seat {
+  final val seatingClass = EconomyPlus
+}
+
+case class EconomySeat(row: Int, seat: Char) extends Seat {
+  final val seatingClass = Economy
+}
