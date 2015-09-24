@@ -2,10 +2,10 @@ package training.scala.air_scala.exercises.one
 
 import org.scalatest.{FreeSpec, MustMatchers}
 import training.scala.air_scala.flights.scheduling.{Itinerary, ProposedItinerary}
-import training.scala.air_scala.{FlightPriceTailrec, TestHelpers, domain}
+import training.scala.air_scala.{TestData, FlightPriceTailrec, TestHelpers, domain}
 
 class TailRecursionSpec extends FreeSpec with MustMatchers {
-  import TestHelpers._
+  import TestData._
   import domain._
   import squants.market._
 
@@ -25,17 +25,19 @@ class TailRecursionSpec extends FreeSpec with MustMatchers {
         Itinerary.totalPrice(itinerary) mustBe USD(0)
       }
     }
-/*    "non-empty itinerary" - {
+    "non-empty itinerary" - {
       "cost is sum of legs" in {
-        val leg1Price = USD(100)
-        val leg2Price = USD(200)
 
         val flights = Seq(
-          arbitraryFlight("N123", leg1Price), arbitraryFlight("N234", leg2Price))
+          sfoToEwrSegment,
+          ewrToSfoSegment
+        )
         val itinerary = ProposedItinerary(flights)
 
-        totalPrice(itinerary) mustBe leg1Price + leg2Price
+        Itinerary.totalPrice(itinerary) mustBe (
+          sfoToEwrSegment.price + ewrToSfoSegment.price
+        )
       }
-    }*/
+    }
   }
 }

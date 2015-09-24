@@ -1,12 +1,15 @@
 package training.scala.air_scala
 
+import squants.space.NauticalMiles
 import training.scala.air_scala.aircraft._
 import training.scala.air_scala.aircraft.Aircraft
 import training.scala.air_scala.airport.{Gate, AirportCode}
 import training.scala.air_scala.flights.{FlightNumber, FlightLeg, Schedule, Flight}
 import com.github.nscala_time.time.Imports._
 import squants.market._
+import squants.space.Length._
 import MoneyConversions._
+
 
 import scala.collection.immutable.HashMap
 
@@ -320,7 +323,8 @@ object TestData {
       FlightNumber("UA", 1683),
       Aircraft(B747),
       sfToNewarkSchedule,
-      USD(256.15)
+      USD(256.15),
+      NauticalMiles(2565)
     )
 
   def ewrToSfoSegment =
@@ -328,7 +332,8 @@ object TestData {
       FlightNumber("UA", 1601),
       Aircraft(B747),
       newarkToSFSchedule,
-      USD(382.26)
+      USD(382.26),
+      NauticalMiles(2565)
     )
 
 }

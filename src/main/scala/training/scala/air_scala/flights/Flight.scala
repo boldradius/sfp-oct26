@@ -20,11 +20,11 @@ class Flight(val number: FlightNumber,
              val aircraft: Aircraft,
              val schedule: Schedule,
              val price: Money,
-             val miles: NauticalMiles)
+             val miles: Length)
 
 
 case class FlightNumber(airlineCode: String, number: Int) {
-  require(airlineCode.matches("[A-Z]{1-3}"),
+  require(airlineCode.matches("[A-Z]{1,3}"),
           "Airline Code must consist of 1-3 uppercase letters.")
   require(number > 0 && number < 8999,
           "Flight Number be between 1 & 8999")
