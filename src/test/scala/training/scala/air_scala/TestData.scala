@@ -289,30 +289,55 @@ object TestData {
     )
   }
 
-  val sfoDeparture = (DateTime.now + 2.days).withTime(1, 49, 0, 0).
+  val sfoToEWRDeparture = (DateTime.now + 2.days).withTime(10, 49, 0, 0).
     withZone(DateTimeZone.forID("US/Pacific"))
 
-  val ewrArrival = (DateTime.now + 2.days).withTime(10, 29, 0, 0).
+  val ewrFromSFOArrival = (DateTime.now + 2.days).withTime(19, 29, 0, 0).
     withZone(DateTimeZone.forID("US/Eastern"))
 
-  val sfoArrival = (DateTime.now + 8.days).withTime(6, 14, 0, 0).
+  val ewrToLHRDeparture = (DateTime.now + 3.days).withTime(21, 49, 0, 0).
+    withZone(DateTimeZone.forID("US/Eastern"))
+
+  val lhrFromEWRArrival = (DateTime.now + 3.days).withTime(10, 19, 0, 0).
+    withZone(DateTimeZone.forID("Europe/London"))
+
+  val lhrToEWRDeparture = (DateTime.now + 8.days).withTime(8, 40, 0, 0).
+    withZone(DateTimeZone.forID("Europe/London"))
+
+
+  val ewrFromLHRArrival = (DateTime.now + 3.days).withTime(11, 45, 0, 0).
+    withZone(DateTimeZone.forID("Europe/London"))
+
+  val ewrToSFODeparture = (DateTime.now + 8.days).withTime(14, 15, 0, 0).
+    withZone(DateTimeZone.forID("US/Eastern"))
+
+  val sfoFromEWRArrival = (DateTime.now + 8.days).withTime(17, 27, 0, 0).
     withZone(DateTimeZone.forID("US/Pacific"))
-
-  val ewrDeparture = (DateTime.now + 8.days).withTime(2, 59, 0, 0).
-    withZone(DateTimeZone.forID("US/Eastern"))
 
   val SFO = AirportCode("SFO")
 
   val EWR = AirportCode("EWR")
 
+  val LHR = AirportCode("LHR")
+
   def sfToNewarkSchedule = Schedule(
-    FlightLeg(SFO, sfoDeparture),
-    FlightLeg(EWR, ewrArrival)
+    FlightLeg(SFO, sfoToEWRDeparture),
+    FlightLeg(EWR, ewrFromSFOArrival)
+  )
+
+  def newarkToLondonSchedule = Schedule(
+    FlightLeg(EWR, ewrToLHRDeparture),
+    FlightLeg(LHR, lhrFromEWRArrival)
+  )
+
+  def londonToNewarkSchedule = Schedule(
+    FlightLeg(LHR, lhrToEWRDeparture),
+    FlightLeg(EWR, ewrFromLHRArrival)
   )
 
   def newarkToSFSchedule = Schedule(
-    FlightLeg(EWR, ewrDeparture),
-    FlightLeg(SFO, sfoDeparture)
+    FlightLeg(EWR, ewrToSFODeparture),
+    FlightLeg(SFO, sfoFromEWRArrival)
   )
 
   implicit val moneyContext = defaultMoneyContext
@@ -327,14 +352,33 @@ object TestData {
       NauticalMiles(2565)
     )
 
-  def ewrToSfoSegment =
+  def ewrToLhrSegment =
     new Flight(
-      FlightNumber("UA", 1601),
+      FlightNumber("UA", 940),
+      Aircraft(B747),
+      newarkToLondonSchedule,
+      USD(1419),
+      NauticalMiles(5199)
+    )
+
+  def lhrToEWRSegment =
+    new Flight(
+      FlightNumber("UA", 923),
+      Aircraft(B747),
+      londonToNewarkSchedule,
+      USD(1738),
+      NauticalMiles(5199)
+    )
+
+  def ewrToSFOSegment =
+    new Flight(
+      FlightNumber("UA", 1978),
       Aircraft(B747),
       newarkToSFSchedule,
       USD(382.26),
       NauticalMiles(2565)
     )
+
 
 }
 
