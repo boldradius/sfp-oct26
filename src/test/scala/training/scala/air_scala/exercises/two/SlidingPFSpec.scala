@@ -1,7 +1,7 @@
 package training.scala.air_scala.exercises.two
 
 import org.scalatest.{FreeSpec, MustMatchers}
-import squants.space.NauticalMiles
+import squants.space.{Length, NauticalMiles}
 import training.scala.air_scala.TestData
 import training.scala.air_scala.flights.scheduling.{Itinerary, ProposedItinerary}
 
@@ -21,14 +21,21 @@ class SlidingPFSpec extends FreeSpec with MustMatchers {
 
         val flights = Seq(
           sfoToEwrSegment,
-          ewrToSfoSegment
+          ewrToLhrSegment,
+          lhrToEWRSegment,
+          ewrToSFOSegment
         )
 
         val itinerary = ProposedItinerary(flights)
 
-        Itinerary.totalMilesEarned(itinerary) mustBe (
-          sfoToEwrSegment.miles + ewrToSfoSegment.miles
-        )
+        val expectedMileage: Double = (
+          sfoToEwrSegment.miles + ewrToLhrSegment.miles +
+            lhrToEWRSegment.miles + ewrToSFOSegment.miles
+        ).toNauticalMiles
+
+        println(expectedMileage)
+
+        Itinerary.totalMilesEarned(itinerary) mustBe expectedMileage
       }
     }
   }
