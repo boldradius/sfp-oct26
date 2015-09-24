@@ -20,7 +20,7 @@ class Flight(val number: FlightNumber,
              val aircraft: Aircraft,
              val schedule: Schedule,
              val price: Money,
-             val miles: NauticalMiles)
+             val miles: Length)
 
 
 case class FlightNumber(airlineCode: String, number: Int) {
