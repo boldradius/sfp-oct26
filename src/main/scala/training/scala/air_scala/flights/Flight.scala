@@ -20,9 +20,13 @@ class Flight(val number: FlightNumber,
              val aircraft: Aircraft,
              val schedule: Schedule,
              val price: Money,
-             val miles: Length) {
+             val miles: Length) extends Ordered[Flight] {
+
+
   override val toString = s"Flight { number: $number, aircraft: $aircraft, schedule: $schedule, " +
     s"price: $price, miles: $miles }"
+
+  override def compare(that: Flight): Int = this.schedule.compare(that.schedule)
 }
 
 
@@ -33,7 +37,12 @@ case class FlightNumber(airlineCode: String, number: Int) {
           "Flight Number be between 1 & 8999")
 }
 
-case class FlightLeg(code: AirportCode, departureTime: DateTime)
+case class FlightLeg(code: AirportCode, time: DateTime) extends Ordered[FlightLeg] {
+  override def compare(that: FlightLeg): Int = this.time.compareTo(that.time)
+}
 
-case class Schedule(origin: FlightLeg, destination: FlightLeg)
+case class Schedule(origin: FlightLeg, destination: FlightLeg) extends Ordered[Schedule] {
+  override def compare(that: Schedule): Int =
+    this.origin.compare(that.origin) + this.destination.compare(that.destination)
+}
 
