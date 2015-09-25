@@ -26,6 +26,13 @@ object Itinerary {
       case _ => true
     }
   }
+
+  def totalTravelTime(itinerary: Itinerary): Period = {
+    itinerary.flights.foldLeft(new Period()) { (p, f) =>
+      println(s"Current Period: $p Current Flight Period: ${f.flightDuration}")
+      p + f.flightDuration
+    }
+  }
 }
 
 sealed trait Itinerary {
