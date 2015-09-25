@@ -34,8 +34,10 @@ class Flight(val number: FlightNumber,
    * This may seem odd at first, but subtracting two flights needs to give us the COMBINED duration
    * of those flights, as such we *ADD* their durations.
    *
+   * NOTE:  normalizedStandard() on Period prevents oddities like "19 hours, 70 minutes"
+   *
    */
-  def -(that: Flight): Period = new Period(that.schedule.origin.time, this.schedule.destination.time )
+  def -(that: Flight): Period = new Period(that.schedule.origin.time, this.schedule.destination.time).normalizedStandard()
 
 }
 

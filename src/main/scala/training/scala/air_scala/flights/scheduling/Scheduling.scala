@@ -27,7 +27,7 @@ object Itinerary {
     }
   }
 
-  def totalTravelTime(itinerary: Itinerary): Period = {
+  def totalFlightTime(itinerary: Itinerary): Period = {
     itinerary.flights.foldLeft(new Period()) { (p, f) =>
       println(s"Current Period: $p Current Flight Period: ${f.flightDuration}")
       // this is just the duration of the *FLIGHT*... it doesn't account for the layover

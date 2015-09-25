@@ -4,6 +4,7 @@ import squants.space.NauticalMiles
 import training.scala.air_scala.aircraft._
 import training.scala.air_scala.aircraft.Aircraft
 import training.scala.air_scala.airport.{Gate, AirportCode}
+import training.scala.air_scala.flights.scheduling.ProposedItinerary
 import training.scala.air_scala.flights.{FlightNumber, FlightLeg, Schedule, Flight}
 import com.github.nscala_time.time.Imports._
 import squants.market._
@@ -291,21 +292,21 @@ object TestData {
 
   // TODO - some of our tests with time comparisons may race based on daylight savings...
 
-  val sfoToEWRDeparture = new DateTime(2018, 6, 12, 10, 49, DateTimeZone.forID("US/Pacific"))
+  val SFOToEWRDeparture = new DateTime(2018, 6, 12, 10, 49, DateTimeZone.forID("US/Pacific"))
 
-  val ewrFromSFOArrival = new DateTime(2018, 6, 12, 19, 29, DateTimeZone.forID("US/Eastern"))
+  val EWRFromSFOArrival = new DateTime(2018, 6, 12, 19, 29, DateTimeZone.forID("US/Eastern"))
 
-  val ewrToLHRDeparture = new DateTime(2018, 6, 12, 21, 49, DateTimeZone.forID("US/Eastern"))
+  val EWRToLHRDeparture = new DateTime(2018, 6, 12, 21, 49, DateTimeZone.forID("US/Eastern"))
 
-  val lhrFromEWRArrival = new DateTime(2018, 6, 13, 10, 19, DateTimeZone.forID("Europe/London"))
+  val LHRFromEWRArrival = new DateTime(2018, 6, 13, 10, 19, DateTimeZone.forID("Europe/London"))
 
-  val lhrToEWRDeparture = new DateTime(2018, 6, 21, 8, 40, DateTimeZone.forID("Europe/London"))
+  val LHRToEWRDeparture = new DateTime(2018, 6, 21, 8, 40, DateTimeZone.forID("Europe/London"))
 
-  val ewrFromLHRArrival = new DateTime(2018, 6, 21, 11, 45, DateTimeZone.forID("Europe/London"))
+  val EWRFromLHRArrival = new DateTime(2018, 6, 21, 11, 45, DateTimeZone.forID("Europe/London"))
 
-  val ewrToSFODeparture = new DateTime(2018, 6, 21, 14, 15, DateTimeZone.forID("US/Eastern"))
+  val EWRToSFODeparture = new DateTime(2018, 6, 21, 14, 15, DateTimeZone.forID("US/Eastern"))
 
-  val sfoFromEWRArrival = new DateTime(2018, 6, 21, 17, 27, DateTimeZone.forID("US/Pacific"))
+  val SFOFromEWRArrival = new DateTime(2018, 6, 21, 17, 27, DateTimeZone.forID("US/Pacific"))
 
   val SFO = AirportCode("SFO")
 
@@ -313,71 +314,112 @@ object TestData {
 
   val LHR = AirportCode("LHR")
 
-  def sfToNewarkSchedule = Schedule(
-    FlightLeg(SFO, sfoToEWRDeparture),
-    FlightLeg(EWR, ewrFromSFOArrival)
+  def SFToNewarkSchedule = Schedule(
+    FlightLeg(SFO, SFOToEWRDeparture),
+    FlightLeg(EWR, EWRFromSFOArrival)
   )
 
-
-  def newarkToLondonSchedule = Schedule(
-    FlightLeg(EWR, ewrToLHRDeparture),
-    FlightLeg(LHR, lhrFromEWRArrival)
+  def NewarkToLondonSchedule = Schedule(
+    FlightLeg(EWR, EWRToLHRDeparture),
+    FlightLeg(LHR, LHRFromEWRArrival)
   )
 
-  def londonToNewarkSchedule = Schedule(
-    FlightLeg(LHR, lhrToEWRDeparture),
-    FlightLeg(EWR, ewrFromLHRArrival)
+  def LondonToNewarkSchedule = Schedule(
+    FlightLeg(LHR, LHRToEWRDeparture),
+    FlightLeg(EWR, EWRFromLHRArrival)
   )
 
-  def newarkToSFSchedule = Schedule(
-    FlightLeg(EWR, ewrToSFODeparture),
-    FlightLeg(SFO, sfoFromEWRArrival)
+  def NewarkToSFSchedule = Schedule(
+    FlightLeg(EWR, EWRToSFODeparture),
+    FlightLeg(SFO, SFOFromEWRArrival)
   )
 
   implicit val moneyContext = defaultMoneyContext
   implicit val moneyNum = new MoneyNumeric()
 
-  def sfoToEwrSegment =
+  def SFOToEWRFlight =
     new Flight(
       FlightNumber("UA", 1683),
       Aircraft(B747),
-      sfToNewarkSchedule,
+      SFToNewarkSchedule,
       USD(256.15),
       NauticalMiles(2565)
     )
 
-  def ewrToLhrSegment =
+  val SFToNewarkItinerary = ProposedItinerary(
+    Seq(
+      SFOToEWRFlight
+    )
+  )
+  
+  def EWRToLHRFlight =
     new Flight(
       FlightNumber("UA", 940),
       Aircraft(B747),
-      newarkToLondonSchedule,
+      NewarkToLondonSchedule,
       USD(1419),
       NauticalMiles(5199)
     )
 
-  def lhrToEWRSegment =
+  val NewarkToLondonItinerary = ProposedItinerary(
+    Seq(
+      EWRToLHRFlight
+    )
+  )
+
+  val SFToLondonItinerary = ProposedItinerary(
+    Seq(
+      SFOToEWRFlight,
+      EWRToLHRFlight
+    )
+  )
+
+  def LHRToEWRFlight =
     new Flight(
       FlightNumber("UA", 923),
       Aircraft(B747),
-      londonToNewarkSchedule,
+      LondonToNewarkSchedule,
       USD(1738),
       NauticalMiles(5199)
     )
 
-  def ewrToSFOSegment =
+  val LondonToNewarkItinerary = ProposedItinerary(
+    Seq(
+      LHRToEWRFlight
+    )
+  )
+
+
+  def EWRToSFOFlight =
     new Flight(
       FlightNumber("UA", 1978),
       Aircraft(B747),
-      newarkToSFSchedule,
+      NewarkToSFSchedule,
       USD(382.26),
       NauticalMiles(2565)
     )
 
+  val NewarkToSFItinerary = ProposedItinerary(
+    Seq(
+      EWRToSFOFlight
+    )
+  )
+
+  val LondonToSFItinerary = ProposedItinerary(
+    Seq(
+      LHRToEWRFlight,
+      EWRToSFOFlight
+    )
+  )
+
+  // todo ++ for Itineraries
+  val SFToLondonRoundTripItinerary = ProposedItinerary(
+    Seq(
+      SFOToEWRFlight,
+      EWRToLHRFlight,
+      LHRToEWRFlight,
+      EWRToSFOFlight
+    )
+  )
 
 }
-
-/*
-case object A320 extends AircraftModel with NarrowBodyJet {
-
-}
-*/
