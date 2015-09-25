@@ -6,6 +6,7 @@ Authors:
 - Michael Nash
 - Andrew Mohrland
 - Brendan McAdams
+- Sheena Luu
 
 TODO:
   - `man` command for exercise instructions
