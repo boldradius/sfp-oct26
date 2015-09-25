@@ -17,6 +17,7 @@ object Itinerary {
     }
     totalPriceF(itinerary.flights, USD(0))
   }
+
 }
 
 sealed trait Itinerary {
