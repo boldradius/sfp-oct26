@@ -302,7 +302,7 @@ object TestData {
 
   val LHRToEWRDeparture = new DateTime(2018, 6, 21, 8, 40, DateTimeZone.forID("Europe/London"))
 
-  val EWRFromLHRArrival = new DateTime(2018, 6, 21, 11, 45, DateTimeZone.forID("Europe/London"))
+  val EWRFromLHRArrival = new DateTime(2018, 6, 21, 11, 45, DateTimeZone.forID("US/Eastern"))
 
   val EWRToSFODeparture = new DateTime(2018, 6, 21, 14, 15, DateTimeZone.forID("US/Eastern"))
 
