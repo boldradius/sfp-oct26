@@ -8,16 +8,7 @@ import training.scala.air_scala.flights.Flight
 import scala.annotation.tailrec
 
 
-object Itinerary {
-  def totalPrice(itinerary: Itinerary): Money = {
-    @tailrec
-    def totalPriceF(flights: Seq[Flight], accum: Money): Money = flights match {
-      case flight +: oFlights => totalPriceF(oFlights, flight.price + accum)
-      case _ => accum
-    }
-    totalPriceF(itinerary.flights, USD(0))
-  }
-}
+object Itinerary { }
 
 sealed trait Itinerary {
   val flights: Seq[Flight]

@@ -289,30 +289,23 @@ object TestData {
     )
   }
 
-  val sfoToEWRDeparture = (DateTime.now + 2.days).withTime(10, 49, 0, 0).
-    withZone(DateTimeZone.forID("US/Pacific"))
+  // TODO - some of our tests with time comparisons may race based on daylight savings...
 
-  val ewrFromSFOArrival = (DateTime.now + 2.days).withTime(19, 29, 0, 0).
-    withZone(DateTimeZone.forID("US/Eastern"))
+  val sfoToEWRDeparture = new DateTime(2018, 6, 12, 10, 49, DateTimeZone.forID("US/Pacific"))
 
-  val ewrToLHRDeparture = (DateTime.now + 3.days).withTime(21, 49, 0, 0).
-    withZone(DateTimeZone.forID("US/Eastern"))
+  val ewrFromSFOArrival = new DateTime(2018, 6, 12, 19, 29, DateTimeZone.forID("US/Eastern"))
 
-  val lhrFromEWRArrival = (DateTime.now + 3.days).withTime(10, 19, 0, 0).
-    withZone(DateTimeZone.forID("Europe/London"))
+  val ewrToLHRDeparture = new DateTime(2018, 6, 12, 21, 49, DateTimeZone.forID("US/Eastern"))
 
-  val lhrToEWRDeparture = (DateTime.now + 8.days).withTime(8, 40, 0, 0).
-    withZone(DateTimeZone.forID("Europe/London"))
+  val lhrFromEWRArrival = new DateTime(2018, 6, 13, 10, 19, DateTimeZone.forID("Europe/London"))
 
+  val lhrToEWRDeparture = new DateTime(2018, 6, 21, 8, 40, DateTimeZone.forID("Europe/London"))
 
-  val ewrFromLHRArrival = (DateTime.now + 3.days).withTime(11, 45, 0, 0).
-    withZone(DateTimeZone.forID("Europe/London"))
+  val ewrFromLHRArrival = new DateTime(2018, 6, 21, 11, 45, DateTimeZone.forID("Europe/London"))
 
-  val ewrToSFODeparture = (DateTime.now + 8.days).withTime(14, 15, 0, 0).
-    withZone(DateTimeZone.forID("US/Eastern"))
+  val ewrToSFODeparture = new DateTime(2018, 6, 21, 14, 15, DateTimeZone.forID("US/Eastern"))
 
-  val sfoFromEWRArrival = (DateTime.now + 8.days).withTime(17, 27, 0, 0).
-    withZone(DateTimeZone.forID("US/Pacific"))
+  val sfoFromEWRArrival = new DateTime(2018, 6, 21, 17, 27, DateTimeZone.forID("US/Pacific"))
 
   val SFO = AirportCode("SFO")
 
@@ -324,6 +317,7 @@ object TestData {
     FlightLeg(SFO, sfoToEWRDeparture),
     FlightLeg(EWR, ewrFromSFOArrival)
   )
+
 
   def newarkToLondonSchedule = Schedule(
     FlightLeg(EWR, ewrToLHRDeparture),
