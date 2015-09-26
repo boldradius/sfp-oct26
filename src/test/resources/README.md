@@ -1,15 +1,18 @@
-003a-folding-layovers
+004-flight-itineraries
 
-# Exercise 3a [Bonus] > Calculate Full Travel Time, with Layover, via `folding`
+# Exercise 4 > Plan Flight Itineraries
 
-For this bonus exercise, we're going to further demonstrate the use of `folding` as an alternate method for recursive operations, without using Tail Recursion or `sliding`.
+For this exercise, we're going to put together what we've learned so far about recursion in Scala to build something more complex. Our goal is to provide a new method which can propose one or more `Itinerary`s based on a `Seq[Flight]`. This will take into account a ‘minimum connection time’, i.e. will I have time to catch my connecting flight?
+- Make sure you've run `koan next` to fetch the tests & test data for this exercise – your sbt prompt should end with `004-flight-itineraries`
+- First, you'll want to add a `proposeItineraries` method to the `Itinerary` companion object, with five parameters:
+    + Please use `zip` instead of `sliding`.
+    + `availableFlights`: An immutable `Seq[Flight]`
+    + `from` and `to`: Instances of `Airport`
+    + In a second parameter list, `minConnectionTime`: A JodaTime `Duration`, defaulting to 90 minutes.
+    + In a third parameter list, `maxConnections`: The maximum number of stops between `from` and `to`, defaulting to `2`
+- Verify the provided tests pass.
 
-- Make sure you've run `koan next` to fetch the tests & test data for this **bonus** exercise – your sbt prompt should end with `003a-folding-layovers`
-- Add a new method – `totalLayoverTime` – to the `Itinerary` companion object, which will determine the total time, including layovers, of an Itinerary
-  + It should accept a parameter `itinerary` of type `Itinerary`
-- **NOTE**: You must implement this method in terms of one of the flavors of `fold`.
-- **NOTE**: The way Joda `Period` works, it's possible to get a answer like "12 hours 75 minutes". Calling `normalizedStandard()` will fix that, but our tests do just in case.
 
-- Think about how this (and the master exercise) differs, with pros & cons, from our first & second exercises (the use of Tail Recursion in Exercise #1, and `sliding`/`forall`/`PartialFunction` in Exercise #2)
-- Use the `test` command to verify the provided tests pass.
-- Use `koan next` to move to the next exercise.
+
+
+

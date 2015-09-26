@@ -44,6 +44,8 @@ object Itinerary {
       }
     }.p
   }
+
+
 }
 
 sealed trait Itinerary {
