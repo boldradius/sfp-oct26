@@ -8,7 +8,6 @@ class FoldingSpec extends FreeSpec with MustMatchers {
   import TestData._
   import com.github.nscala_time.time.Imports._
 
-
   "totalFlightTime calculates the total time, with layovers, during a flight Itinerary" - {
     "empty itinerary" - {
       "is 0 duration" in {
@@ -30,6 +29,54 @@ class FoldingSpec extends FreeSpec with MustMatchers {
         }
       }
     }
+  }
 
+  "totalLayoverTime calculates the total layover (non-air) time for a flight Itinerary" - {
+
+    "empty itinerary" - {
+      val itinerary = ProposedItinerary(Seq.empty)
+
+      "has layover time of 0" in {
+        Itinerary.totalLayoverTime(itinerary) mustBe 0.seconds.toPeriod
+      }
+    }
+
+    "single item itinerary" - {
+      val itinerary = ProposedItinerary(Seq(SFOToEWRFlight))
+
+      "has layover time of 0" in {
+        Itinerary.totalLayoverTime(itinerary) mustBe 0.seconds.toPeriod
+      }
+    }
+
+    "valid itinerary with 1 layover" - {
+      "layover time is difference between 1st flight's arrival and 2nd flight's departure" in {
+
+        val itinerary = ProposedItinerary(Seq(SFOToEWRFlight, EWRToLHRFlight))
+
+        val layoverTime = Itinerary.totalLayoverTime(itinerary)
+
+        layoverTime mustBe {
+          SFOToEWRFlight.schedule.destination.time to EWRToLHRFlight.schedule.origin.time toPeriod
+        }
+      }
+    }
+    "valid itinerary with multiple layovers" - {
+      "layover time is sum of layovers" in {
+
+        val itinerary =
+          ProposedItinerary(Seq(SFOToEWRFlight, EWRToLHRFlight, LHRToEWRFlight))
+
+        val layoverTime = Itinerary.totalLayoverTime(itinerary)
+
+        layoverTime mustBe {
+          (SFOToEWRFlight.schedule.destination.time to EWRToLHRFlight.schedule.origin.time)
+            .toPeriod +
+            (EWRToLHRFlight.schedule.destination.time to LHRToEWRFlight.schedule.origin.time)
+              .toPeriod
+
+        }
+      }
+    }
   }
 }
