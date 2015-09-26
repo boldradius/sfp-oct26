@@ -1,19 +1,21 @@
 005-unapply
 
+
 # Exercise 5 > Custom Extractors
 #### Using `unapply`
 
-You may have noted that `Flight` is not currently a case class. We've done that somewhat deliberately, to leave a place for us to implement our own extractors. In this exercise, we'll add a companion object to `Flight`, implementing both an `apply` factory and an `unapply` extractor.
-- Make sure you've run `koan next` to fetch the tests & test data for this exercise – your sbt prompt should end with `004-flight-itineraries`
-- Create a Companion Object for `Flight`, with defined implementations of `apply` and `unapply`.
-    - Make sure that `apply` takes the constructor arguments of `Flight`, and returns a new instance of `Flight`.
-    - Write an extractor `unapply` which, given an instance of `Flight`, can be used in pattern matching.
-- In the Test Console `sbt > test:console`, play with some pattern matches against instances of `Flight`.
+
+While `FlightNumber` is a case class, it still requires us to construct it with independent parameters - `airlineCode: String` and `flightNumber: Int`. Since it's a case class, we've already been provided an `unapply` extractor. It would be nice, however, if we could also extract from a bare `String`.
+
+- Create a Companion Object for `FlightNumber`, and define a new extractor method which, given a `String`, attempts to extract an `airlineCode` and `flightNumber`.
+
+  - **HINT**: You can use the following RegEx to extract a flight number cleanly:
+
+    ```
+    val FlightNumRE = "([A-Z]{1,4})(\\d{1,4})".r
+    ```
+
+- In the Test Console – `sbt > test:console` – play with some pattern matches against instances of `FlightNumber`.
 - Verify the provided tests pass.
-
-^ TODO - show a reason to send None back?
-
-
-
 
 
