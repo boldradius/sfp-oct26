@@ -23,7 +23,7 @@ class ForallSlidingPFSpec extends FreeSpec with MustMatchers {
       }
     }
     "non-empty, itinerary" - {
-      "a valid itinerary should evaluate as increasing" - {
+      "a valid itinerary should evaluate as increasing" in {
 
         val flights = Seq(
           SFOToEWRFlight,
@@ -36,7 +36,7 @@ class ForallSlidingPFSpec extends FreeSpec with MustMatchers {
 
         Itinerary.isScheduleIncreasing(itinerary) mustBe true
       }
-      "an invalid itinerary should *NOT* evaluate as increasing" - {
+      "an invalid itinerary should *NOT* evaluate as increasing" in {
 
         val flights = Seq(
           EWRToLHRFlight,
