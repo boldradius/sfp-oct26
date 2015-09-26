@@ -30,7 +30,6 @@ case class Flight(val number: FlightNumber,
 
 }
 
-
 object FlightNumber {
   val FlightNumRE = "([A-Z]{1,4})(\\d{1,4})".r
 
@@ -42,10 +41,10 @@ object FlightNumber {
   }
 }
 
-case class FlightNumber(airlineCode: String, number: Int) {
+case class FlightNumber(airlineCode: String, flightNumber: Int) {
   require(airlineCode.matches("[A-Z]{1,3}"),
     "Airline Code must consist of 1-3 uppercase letters.")
-  require(number > 0 && number < 8999,
+  require(flightNumber > 0 && flightNumber < 8999,
     "Flight Number be between 1 & 8999")
 }
 
