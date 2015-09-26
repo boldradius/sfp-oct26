@@ -31,8 +31,6 @@ object Itinerary {
     }
   }
 
-
-
   def totalLayoverTime(itinerary: Itinerary): Period = {
     case class Accum(p: Period, lastTime: Option[DateTime])
     val init = Accum(new Period(), None)
@@ -41,7 +39,8 @@ object Itinerary {
         case a @ Accum(p, None) =>
           a.copy(lastTime = Some(f.schedule.destination.time))
         case a @ Accum(p, Some(lastArrivalTime)) =>
-          Accum((lastArrivalTime to f.schedule.origin.time).toPeriod, Some(f.schedule.destination.time))
+          Accum((lastArrivalTime to f.schedule.origin.time).toPeriod + p,
+                Some(f.schedule.destination.time))
       }
     }.p
   }
