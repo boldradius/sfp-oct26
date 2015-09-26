@@ -4,6 +4,7 @@ import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 import squants.market.Money
 import squants.space._
+import training.scala.air_scala.ValidInt
 import training.scala.air_scala.aircraft.Aircraft
 import training.scala.air_scala.airport.AirportCode
 
@@ -27,6 +28,18 @@ case class Flight(val number: FlightNumber,
    */
   def -(that: Flight): Period = new Period(that.schedule.origin.time, this.schedule.destination.time)
 
+}
+
+
+object FlightNumber {
+  val FlightNumRE = "([A-Z]{1,4})(\\d{1,4})".r
+
+  def unapply(str: String): Option[(String, Int)] = str match {
+    case FlightNumRE(code, number @ ValidInt()) =>
+      Some(code -> number.toInt)
+    case _ =>
+      None
+  }
 }
 
 case class FlightNumber(airlineCode: String, number: Int) {
