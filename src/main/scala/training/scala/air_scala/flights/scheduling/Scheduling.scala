@@ -45,7 +45,11 @@ object Itinerary {
     }.p
   }
 
+  def unapplySeq(itinerary: Itinerary): Option[Seq[Flight]] = {
+    Option(itinerary.flights)
+  }
 }
+
 
 sealed trait Itinerary {
   val flights: Seq[Flight]
