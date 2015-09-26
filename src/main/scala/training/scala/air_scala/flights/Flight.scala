@@ -1,27 +1,17 @@
 package training.scala.air_scala.flights
 
+import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 import squants.market.Money
-import training.scala.air_scala.aircraft.Aircraft
-import training.scala.air_scala.airport.{AirportCode, Gate}
-import training.scala.air_scala.flights.scheduling._
-import com.github.nscala_time.time.Imports._
-import squants._
-import squants.market._
 import squants.space._
+import training.scala.air_scala.aircraft.Aircraft
+import training.scala.air_scala.airport.AirportCode
 
-/*
- __ Implementation Note __
- This is deliberately not a case class, as we'll be using it
- for other purposes later.
-
-*/
-class Flight(val number: FlightNumber,
-             val aircraft: Aircraft,
-             val schedule: Schedule,
-             val price: Money,
-             val miles: Length) extends Ordered[Flight] {
-
+case class Flight(val number: FlightNumber,
+  val aircraft: Aircraft,
+  val schedule: Schedule,
+  val price: Money,
+  val miles: Length) extends Ordered[Flight] {
 
   override val toString = s"Flight { number: $number, aircraft: $aircraft, schedule: $schedule, " +
     s"price: $price, miles: $miles }"
@@ -35,16 +25,15 @@ class Flight(val number: FlightNumber,
    * of those flights, as such we *ADD* their durations.
    *
    */
-  def -(that: Flight): Period = new Period(that.schedule.origin.time, this.schedule.destination.time )
+  def -(that: Flight): Period = new Period(that.schedule.origin.time, this.schedule.destination.time)
 
 }
 
-
 case class FlightNumber(airlineCode: String, number: Int) {
   require(airlineCode.matches("[A-Z]{1,3}"),
-          "Airline Code must consist of 1-3 uppercase letters.")
+    "Airline Code must consist of 1-3 uppercase letters.")
   require(number > 0 && number < 8999,
-          "Flight Number be between 1 & 8999")
+    "Flight Number be between 1 & 8999")
 }
 
 case class FlightLeg(code: AirportCode, time: DateTime) extends Ordered[FlightLeg] {
