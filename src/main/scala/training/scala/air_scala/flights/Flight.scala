@@ -10,12 +10,16 @@ import squants._
 import squants.market._
 import squants.space._
 
-/*
- __ Implementation Note __
- This is deliberately not a case class, as we'll be using it
- for other purposes later.
+object Flight {
+  def apply(number: FlightNumber, aircraft: Aircraft, schedule: Schedule,
+             price: Money, miles: Length): Flight =
+    Flight(number, aircraft, schedule, price, miles)
 
-*/
+  def unapply(flight: Flight): Option[(FlightNumber, Aircraft, Schedule, Money, Length)] =
+    Option((flight.number, flight.aircraft, flight.schedule, flight.price, flight.miles))
+
+}
+
 class Flight(val number: FlightNumber,
              val aircraft: Aircraft,
              val schedule: Schedule,
