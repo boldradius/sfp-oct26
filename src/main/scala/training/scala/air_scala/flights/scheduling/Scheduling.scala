@@ -1,11 +1,8 @@
 package training.scala.air_scala.flights.scheduling
 
 import com.github.nscala_time.time.Imports._
-import squants.market.{USD, Money}
-import squants.space._
-import training.scala.air_scala.airport.AirportCode
+import squants.market.{Money, USD}
 import training.scala.air_scala.flights.Flight
-import LengthConversions.LengthNumeric
 
 import scala.annotation.tailrec
 
@@ -32,6 +29,21 @@ object Itinerary {
       // this is just the duration of the *FLIGHT*... it doesn't account for the layover
       p + f.flightDuration
     }
+  }
+
+
+
+  def totalLayoverTime(itinerary: Itinerary): Period = {
+    case class Accum(p: Period, lastTime: Option[DateTime])
+    val init = Accum(new Period(), None)
+    itinerary.flights.foldLeft(init) { (acc, f) =>
+      acc match {
+        case a @ Accum(p, None) =>
+          a.copy(lastTime = Some(f.schedule.destination.time))
+        case a @ Accum(p, Some(lastArrivalTime)) =>
+          Accum((lastArrivalTime to f.schedule.origin.time).toPeriod, Some(f.schedule.destination.time))
+      }
+    }.p
   }
 }
 
