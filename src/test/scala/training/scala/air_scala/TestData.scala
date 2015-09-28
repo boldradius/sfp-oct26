@@ -346,12 +346,27 @@ object TestData {
       NauticalMiles(2565)
     )
 
+  def SFOToEWRFlightEarlierFlight = {
+    val earlierSchedule = SFToNewarkSchedule.copy(
+      origin = SFToNewarkSchedule.origin.copy(
+        time = SFToNewarkSchedule.origin.time - 1.hour
+      ))
+
+    new Flight(
+      FlightNumber("UA", 1683),
+      Aircraft(B747),
+      earlierSchedule,
+      USD(256.15),
+      NauticalMiles(2565)
+    )
+  }
+
   val SFToNewarkItinerary = ProposedItinerary(
     Seq(
       SFOToEWRFlight
     )
   )
-  
+
   def EWRToLHRFlight =
     new Flight(
       FlightNumber("UA", 940),
@@ -412,6 +427,14 @@ object TestData {
     )
   )
 
+  val NewarkToLondonToSFItinerary = ProposedItinerary(
+    Seq(
+      EWRToLHRFlight,
+      LHRToEWRFlight,
+      EWRToSFOFlight
+    )
+  )
+
   // todo ++ for Itineraries
   val SFToLondonRoundTripItinerary = ProposedItinerary(
     Seq(
@@ -422,4 +445,15 @@ object TestData {
     )
   )
 
+  val nonIncreasingItinerary = ProposedItinerary(
+    Seq(
+      EWRToLHRFlight,
+      SFOToEWRFlight,
+      EWRToSFOFlight,
+      LHRToEWRFlight
+    ))
+
+  val nonSharedAirportItinerary = ProposedItinerary(
+    Seq(SFOToEWRFlight,LHRToEWRFlight)
+  )
 }

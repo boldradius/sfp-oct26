@@ -7,11 +7,13 @@ import squants.space._
 import training.scala.air_scala.aircraft.Aircraft
 import training.scala.air_scala.airport.AirportCode
 
-case class Flight(val number: FlightNumber,
-  val aircraft: Aircraft,
-  val schedule: Schedule,
-  val price: Money,
-  val miles: Length) extends Ordered[Flight] {
+case class Flight(
+  number: FlightNumber,
+  aircraft: Aircraft,
+  schedule: Schedule,
+  price: Money,
+  miles: Length
+) extends Ordered[Flight] {
 
   override val toString = s"Flight { number: $number, aircraft: $aircraft, schedule: $schedule, " +
     s"price: $price, miles: $miles }"

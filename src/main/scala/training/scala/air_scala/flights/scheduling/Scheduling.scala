@@ -24,6 +24,14 @@ object Itinerary {
     }
   }
 
+  def subsequentFlightsShareAirport(itinerary: Itinerary): Boolean = {
+    itinerary.flights.sliding(2).forall {
+      case f1 +: f2 +: Nil =>
+        f1.schedule.destination.code == f2.schedule.origin.code
+      case _ => true
+    }
+  }
+
   def totalFlightTime(itinerary: Itinerary): Period = {
     itinerary.flights.foldLeft(new Period()) { (p, f) =>
       // this is just the duration of the *FLIGHT*... it doesn't account for the layover
@@ -31,24 +39,35 @@ object Itinerary {
     }
   }
 
-  def totalLayoverTime(itinerary: Itinerary): Period = {
-    case class Accum(p: Period, lastTime: Option[DateTime])
-    val init = Accum(new Period(), None)
+  def totalLayoverTime(itinerary: Itinerary): Period =
+    layoverTimes(itinerary).foldLeft(new Period())(_ + _.toPeriod).normalizedStandard
+
+  def layoverTimes(itinerary: Itinerary): Seq[Duration] = {
+    case class Accum(layovers: Seq[Duration], lastTime: Option[DateTime])
+    val init = Accum(Seq.empty[Duration], None)
     itinerary.flights.foldLeft(init) { (acc, f) =>
       acc match {
-        case a @ Accum(p, None) =>
+        case a @ Accum(layovers, None) =>
           a.copy(lastTime = Some(f.schedule.destination.time))
-        case a @ Accum(p, Some(lastArrivalTime)) =>
-          Accum((lastArrivalTime to f.schedule.origin.time).toPeriod + p,
+        case a @ Accum(layovers, Some(lastArrivalTime)) =>
+          Accum(layovers :+ (lastArrivalTime to f.schedule.origin.time).toDuration,
                 Some(f.schedule.destination.time))
       }
-    }.p
+    }.layovers
   }
-
 }
 
 sealed trait Itinerary {
   val flights: Seq[Flight]
+  val connectionsCount: Int
 }
 
-case class ProposedItinerary(flights: Seq[Flight]) extends Itinerary
+case class ProposedItinerary(flights: Seq[Flight]) extends Itinerary {
+
+  val connectionsCount = {
+    val size = flights.size
+    if (size == 0) 0
+    else size - 1
+  }
+
+}

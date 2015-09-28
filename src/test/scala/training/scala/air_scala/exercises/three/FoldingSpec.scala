@@ -70,11 +70,13 @@ class FoldingSpec extends FreeSpec with MustMatchers {
         val layoverTime = Itinerary.totalLayoverTime(itinerary)
 
         layoverTime mustBe {
-          (SFOToEWRFlight.schedule.destination.time to EWRToLHRFlight.schedule.origin.time)
-            .toPeriod +
-            (EWRToLHRFlight.schedule.destination.time to LHRToEWRFlight.schedule.origin.time)
+          val period =
+            (SFOToEWRFlight.schedule.destination.time to EWRToLHRFlight.schedule.origin.time)
+              .toPeriod +
+              (EWRToLHRFlight.schedule.destination.time to LHRToEWRFlight.schedule.origin.time)
               .toPeriod
 
+          period.normalizedStandard
         }
       }
     }

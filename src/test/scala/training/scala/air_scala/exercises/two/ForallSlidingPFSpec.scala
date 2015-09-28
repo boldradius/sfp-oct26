@@ -1,13 +1,11 @@
 package training.scala.air_scala.exercises.two
 
 import org.scalatest.{FreeSpec, MustMatchers}
-import squants.space.{Length, NauticalMiles}
 import training.scala.air_scala.TestData
 import training.scala.air_scala.flights.scheduling.{Itinerary, ProposedItinerary}
 
 class ForallSlidingPFSpec extends FreeSpec with MustMatchers {
   import TestData._
-  import squants.market._
 
   "isScheduleIncreasing checks if a flight schedule is strictly increasing in time" - {
     "empty itinerary" - {
@@ -38,16 +36,7 @@ class ForallSlidingPFSpec extends FreeSpec with MustMatchers {
       }
       "an invalid itinerary should *NOT* evaluate as increasing" in {
 
-        val flights = Seq(
-          EWRToLHRFlight,
-          SFOToEWRFlight,
-          EWRToSFOFlight,
-          LHRToEWRFlight
-        )
-
-        val itinerary = ProposedItinerary(flights)
-
-        Itinerary.isScheduleIncreasing(itinerary) mustBe false
+        Itinerary.isScheduleIncreasing(nonIncreasingItinerary) mustBe false
       }
     }
   }
