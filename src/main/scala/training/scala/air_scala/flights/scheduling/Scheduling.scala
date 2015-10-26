@@ -27,12 +27,7 @@ object Itinerary {
     }
   }
 
-  def totalFlightTime(itinerary: Itinerary): Period = {
-    itinerary.flights.foldLeft(new Period()) { (p, f) =>
-      // this is just the duration of the *FLIGHT*... it doesn't account for the layover
-      p + f.flightDuration
-    }
-  }
+
 }
 
 sealed trait Itinerary {
