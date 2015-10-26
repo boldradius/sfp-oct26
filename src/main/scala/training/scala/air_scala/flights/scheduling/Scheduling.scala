@@ -20,12 +20,6 @@ object Itinerary {
     totalPriceF(itinerary.flights, USD(0))
   }
 
-  def isScheduleIncreasing(itinerary: Itinerary): Boolean = {
-    itinerary.flights.sliding(2).forall {
-      case f1 +: f2 +: _ => f1 < f2
-      case _ => true
-    }
-  }
 
 }
 
