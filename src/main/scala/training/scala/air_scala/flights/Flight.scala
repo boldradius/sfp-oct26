@@ -30,16 +30,7 @@ case class Flight(val number: FlightNumber,
 
 }
 
-object FlightNumber {
-  val FlightNumRE = "([A-Z]{1,4})(\\d{1,4})".r
 
-  def unapply(str: String): Option[(String, Int)] = str match {
-    case FlightNumRE(code, number @ ValidInt()) =>
-      Some(code -> number.toInt)
-    case _ =>
-      None
-  }
-}
 
 case class FlightNumber(airlineCode: String, flightNumber: Int) {
   require(airlineCode.matches("[A-Z]{1,3}"),
