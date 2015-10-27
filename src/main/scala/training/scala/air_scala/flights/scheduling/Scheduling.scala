@@ -45,9 +45,6 @@ object Itinerary {
     }.p
   }
 
-  def unapplySeq(itinerary: Itinerary): Option[Seq[Flight]] = {
-    Option(itinerary.flights)
-  }
 }
 
 
