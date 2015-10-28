@@ -57,24 +57,13 @@ case object Economy extends SeatingClass {
   val priority = 4
 }
 
-sealed trait Seat {
-  val row: Int
-  val seat: Char
-  val seatingClass: SeatingClass
-}
+sealed trait SeatPosition
+case object Window extends SeatPosition
+case object Middle extends SeatPosition
+case object Aisle extends SeatPosition
 
-case class FirstClassSeat(row: Int, seat: Char) extends Seat {
-  final val seatingClass = FirstClass
-}
-
-case class BusinessClassSeat(row: Int, seat: Char) extends Seat {
-  final val seatingClass = BusinessClass
-}
-
-case class EconomyPlusSeat(row: Int, seat: Char) extends Seat {
-  final val seatingClass = EconomyPlus
-}
-
-case class EconomySeat(row: Int, seat: Char) extends Seat {
-  final val seatingClass = Economy
-}
+case class Seat(
+  val row: Int,
+  val seat: Char,
+  val seatingClass: SeatingClass,
+  val seatPosition: SeatPosition)

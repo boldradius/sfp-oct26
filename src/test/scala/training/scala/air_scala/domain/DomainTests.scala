@@ -6,7 +6,6 @@ import com.github.nscala_time.time.Imports._
 import squants.market._
 import training.scala.air_scala.TestHelpers._
 import training.scala.air_scala.aircraft._
-import training.scala.air_scala.airline.Canadian
 import training.scala.air_scala.airport._
 import training.scala.air_scala.flights.Flight
 

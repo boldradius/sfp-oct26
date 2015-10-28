@@ -2,12 +2,15 @@ package training.scala.air_scala.airport
 
 
 object AirportCode {
+  def apply(str: String) : AirportCode = {
+    require(str.matches("[A-Z]{3}"), "Airport Code must consist of 3 uppercase letters.")
+    new AirportCode(str)
+  }
 
   implicit def toCode(str: String): AirportCode =
     AirportCode(str)
 
 }
 
-case class AirportCode(str: String) {
-  require(str.matches("[A-Z]{3}"), "Airport Code must consist of 3 uppercase letters.")
+class AirportCode(val str: String) extends AnyVal {
 }

@@ -8,6 +8,9 @@ import scala.annotation.tailrec
 
 
 object Itinerary {
+  def unapplySeq(i: Itinerary) : Option[Seq[Flight]] =
+    Some(i.flights)
+
   def totalPrice(itinerary: Itinerary): Money = {
     @tailrec
     def totalPriceF(flights: Seq[Flight], accum: Money): Money = flights match {
