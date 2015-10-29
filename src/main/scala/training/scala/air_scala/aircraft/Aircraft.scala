@@ -38,20 +38,25 @@ case class Aircraft(model: AircraftModel)
 
 case class Airline(name: String, aircraft: Set[Aircraft])
 
-case class Plane(seats: Set[Seat]) {
+case class Plane(seats: Set[Seat], mapping: Map[Passenger, Seat]) {
   def reserve(passenger: Passenger): Option[(Seat, Plane)] = {
 
     val availableClassSeats = seats.filter(_.seatingClass == passenger.seatingClass)
 
-    availableClassSeats
+    val foundSeat = availableClassSeats
       .find(_.seatPosition == passenger.seatPreference)
       .orElse(availableClassSeats.find(_.seatPosition != Middle))
       .orElse(availableClassSeats.headOption)
-      .map(s => (s, Plane(seats - s)))
+
+
+      foundSeat.map(s => (s, Plane(seats - s, mapping+ ((passenger,s)))))
+
+
 
   }
 
-  def upgradeSeat(passenger: Passenger, pseat:Seat): Option[(Seat, Plane)] = {
+  def upgradeSeat(passenger: Passenger): Option[(Seat, Plane)] = {
+    val pseat = mapping.get(passenger)
     val availableFirstClassSeats = seats.filter(_.seatingClass == FirstClass)
     val availableBusinessClassSeats = seats.filter(_.seatingClass == BusinessClass)
     val availableEconomyPlusClassSeats = seats.filter(_.seatingClass == EconomyPlus)
@@ -67,7 +72,7 @@ case class Plane(seats: Set[Seat]) {
       case Kelland => if(passenger.seatingClass==Economy) availableEconomyPlusClassSeats.headOption else None
       case _ => None
     }
-    optS.map((s:Seat)=>(s, Plane(seats - s + pseat)))
+    optS.map((s:Seat)=>(s, Plane(seats - s + mapping(passenger), mapping + (passenger-> s))))
   }
 }
 
