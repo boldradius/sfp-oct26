@@ -38,15 +38,20 @@ case class Aircraft(model: AircraftModel)
 
 case class Airline(name: String, aircraft: Set[Aircraft])
 
-case class Plane(seats: Set[Seat]) {
+case class Plane(availableSeats: Set[Seat], assignedSeats: Set[(Seat, Passenger)]) {
   def reserve(passenger: Passenger): Option[(Seat, Plane)] = {
-
-    val availableClassSeats = this.seats.filter(_.seatingClass == passenger.seatingClass)
+    val availableClassSeats = availableSeats.filter(_.seatingClass == passenger.seatingClass)
 
     availableClassSeats
       .find(_.seatPosition == passenger.seatPreference)
-      .orElse(availableClassSeats.find(_.seatPosition != Middle).orElse(availableClassSeats.headOption))
-      .map(s => (s, Plane(seats - s)))
+      .orElse(availableClassSeats.find(_.seatPosition != Middle))
+      .orElse(availableClassSeats.headOption)
+      .map(s => {
+        val available = availableSeats - s
+        val assigned = assignedSeats + ((s, passenger))
+
+        (s, Plane(available, assigned))
+      })
 
   }
 }
