@@ -33,7 +33,66 @@ trait AircraftModel { self: AircraftClass =>
 
 }
 
-case class Aircraft(model: AircraftModel)
+case class Plane(seats: Map[SeatingClass, Seq[Seat]])
+
+case class Aircraft(model: AircraftModel) {
+
+  def checkInPassenger(passenger: Passenger, plane: Plane): (Option[Seat], Plane) = {
+    val seatMap = plane.seats
+    val seatClass = passenger.seatingClass
+    val seatSeq = seatMap(seatClass)
+
+    val assignedSeat =
+      seatSeq
+        .find(_.seatPosition == passenger.seatPosition)
+        .orElse(seatSeq.find(_.seatPosition != Middle))
+        .orElse(seatSeq.headOption)
+
+    val newSeatMap = seatMap +
+      (seatClass -> plane.seats(seatClass).filterNot(_ == assignedSeat))
+
+    (assignedSeat, Plane(newSeatMap))
+  }
+
+  def upgradePassenger(passenger: Passenger, plane: Plane): (Option[Seat], Plane) = {
+
+    passenger.frequentFlyer.flatMap(frequentFlyer =>
+
+      (passenger.seatingClass.priority + 1 to frequentFlyer.priority)
+        .toStream
+        .map {
+          priority =>
+
+            val upgradedPassenger =
+              new Passenger(passenger.familyName, passenger.givenName,
+                passenger.middleName, passenger.seatPosition, new SeatingClass {
+                  override val priority: Int = priority
+                }, passenger.frequentFlyer)
+
+            checkInPassenger(upgradedPassenger, plane)
+
+        }.find { case (a, _) => a.isDefined }.flatten
+
+    ).getOrElse((None, plane))
+
+  }
+}
+
+sealed trait FrequentFlyer {
+  val priority: Int
+}
+
+case object Odersky extends FrequentFlyer {
+  val priority = FirstClass.priority
+}
+
+case object Klang extends FrequentFlyer {
+  val priority = BusinessClass.priority
+}
+
+case object Kelland extends FrequentFlyer {
+  val priority = EconomyPlus.priority
+}
 
 case class Airline(name: String, aircraft: Set[Aircraft])
 
@@ -57,13 +116,41 @@ case object Economy extends SeatingClass {
   val priority = 4
 }
 
+sealed trait SeatPosition {
+  val name: String
+}
+
+case object Aisle extends SeatPosition {
+  val name = "Aisle"
+}
+
+case object Middle extends SeatPosition {
+  val name = "Middle"
+}
+
+case object Window extends SeatPosition {
+  val name = "Window"
+}
+
 sealed trait Seat {
   val row: Int
   val seat: Char
   val seatingClass: SeatingClass
+  val seatPosition: SeatPosition
 }
 
-case class FirstClassSeat(row: Int, seat: Char) extends Seat {
+class Passenger(val familyName: String,
+                val givenName: String,
+                val middleName: Option[String],
+                val seatPosition: SeatPosition,
+                val seatingClass: SeatingClass,
+                val frequentFlyer: Option[FrequentFlyer]) {
+
+  require(seatPosition != Middle) // won't be able to recover from exception
+
+}
+
+/*case class FirstClassSeat(row: Int, seat: Char) extends Seat {
   final val seatingClass = FirstClass
 }
 
@@ -77,4 +164,4 @@ case class EconomyPlusSeat(row: Int, seat: Char) extends Seat {
 
 case class EconomySeat(row: Int, seat: Char) extends Seat {
   final val seatingClass = Economy
-}
+}*/
