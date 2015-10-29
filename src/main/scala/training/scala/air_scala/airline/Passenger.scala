@@ -12,11 +12,12 @@ import scala.reflect._
  * Also, add "FrequentFlyer" info... maybe instead?
  */
 case class Passenger(
-                                         firstName: String,
-                                         middleName: Option[String],
-                                         lastName:String,
-                                         seatPreference: SeatPosition,
-                                         seatingClass: SeatingClass)  {
+                     firstName: String,
+                     middleName: Option[String],
+                     lastName:String,
+                     seatPreference: SeatPosition,
+                     seatingClass: SeatingClass,
+                     frequentFlyer: FrequentFlyer)  {
 
 }
 

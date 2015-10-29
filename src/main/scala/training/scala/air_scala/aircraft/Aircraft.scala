@@ -50,6 +50,25 @@ case class Plane(seats: Set[Seat]) {
       .map(s => (s, Plane(seats - s)))
 
   }
+
+  def upgradeSeat(passenger: Passenger, pseat:Seat): Option[(Seat, Plane)] = {
+    val availableFirstClassSeats = seats.filter(_.seatingClass == FirstClass)
+    val availableBusinessClassSeats = seats.filter(_.seatingClass == BusinessClass)
+    val availableEconomyPlusClassSeats = seats.filter(_.seatingClass == EconomyPlus)
+    val availableEconomyClassSeats = seats.filter(_.seatingClass == Economy)
+    val optS  = passenger.frequentFlyer match {
+      case Odersky => availableFirstClassSeats.headOption.
+                      orElse(availableBusinessClassSeats.headOption).
+                      orElse(availableEconomyPlusClassSeats.headOption).
+                      orElse(availableEconomyClassSeats.headOption)
+      case Klang => availableBusinessClassSeats.headOption.
+                    orElse(availableEconomyPlusClassSeats.headOption).
+                    orElse(availableEconomyClassSeats.headOption)
+      case Kelland => if(passenger.seatingClass==Economy) availableEconomyPlusClassSeats.headOption else None
+      case _ => None
+    }
+    optS.map((s:Seat)=>(s, Plane(seats - s + pseat)))
+  }
 }
 
 
@@ -73,6 +92,18 @@ case object Economy extends SeatingClass {
   val priority = 4
 }
 
+sealed trait FrequentFlyer {
+}
+
+case object Odersky extends FrequentFlyer {
+
+}
+case object Klang extends FrequentFlyer {
+
+}
+case object Kelland extends FrequentFlyer {
+
+}
 sealed trait SeatPosition
 
 case object Aisle extends SeatPosition
