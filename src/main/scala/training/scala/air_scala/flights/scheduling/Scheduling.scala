@@ -8,6 +8,17 @@ import scala.annotation.tailrec
 
 
 object Itinerary {
+
+  implicit val itineraryOrdered = new Ordering[Itinerary] {
+    override def compare(x: Itinerary, y: Itinerary): Int =
+      x.flights.map(_.price).reduce(_+_)
+        .compare(y.flights.map(_.price).reduce(_+_))
+  }
+
+  def unapplySeq(itinerary: Itinerary): Option[Seq[Flight]] = {
+    Some(itinerary.flights)
+  }
+
   def totalPrice(itinerary: Itinerary): Money = {
     @tailrec
     def totalPriceF(flights: Seq[Flight], accum: Money): Money = flights match {
