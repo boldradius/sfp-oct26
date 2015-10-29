@@ -33,25 +33,32 @@ trait AircraftModel { self: AircraftClass =>
 
 }
 
-case class Plane(seats: Map[SeatingClass, Seq[Seat]])
+case class AssignedSeat(seat: Seat, passenger: Option[Passenger])
+
+case class Plane(seats: Map[SeatingClass, List[AssignedSeat]])
 
 case class Aircraft(model: AircraftModel) {
 
   def checkInPassenger(passenger: Passenger, plane: Plane): (Option[Seat], Plane) = {
-    val seatMap = plane.seats
+
     val seatClass = passenger.seatingClass
-    val seatSeq = seatMap(seatClass)
+    val planeSeats = plane.seats
+    val seatSeq = planeSeats(seatClass)
+
+    val availableSeatSeq = seatSeq.filter{case AssignedSeat(_, passenger) => passenger == None}
 
     val assignedSeat =
-      seatSeq
-        .find(_.seatPosition == passenger.seatPosition)
-        .orElse(seatSeq.find(_.seatPosition != Middle))
+      availableSeatSeq
+        .find(_.seat.seatPosition == passenger.seatPosition)
+        .orElse(seatSeq.find(_.seat.seatPosition != Middle))
         .orElse(seatSeq.headOption)
 
-    val newSeatMap = seatMap +
-      (seatClass -> plane.seats(seatClass).filterNot(_ == assignedSeat))
-
-    (assignedSeat, Plane(newSeatMap))
+    assignedSeat.map{
+      sp => {
+        val unchangedSeatSeq = seatSeq.filterNot(_ == assignedSeat)
+        (Some(sp.seat), Plane(planeSeats + (seatClass -> (AssignedSeat(sp.seat, Some(passenger)) +: unchangedSeatSeq))))
+      }
+    }.getOrElse((None, plane))
   }
 
   def upgradePassenger(passenger: Passenger, plane: Plane): (Option[Seat], Plane) = {
