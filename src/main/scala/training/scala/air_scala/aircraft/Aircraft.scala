@@ -3,6 +3,8 @@ package training.scala.air_scala.aircraft
 import training.scala.air_scala.airline.Passenger
 import training.scala.air_scala.airport.{LongRunway, MediumRunway, ShortRunway, LandingSurface}
 
+import scalaz.std.option._
+
 
 // To be used Later, maybe for abstract types
 sealed trait AircraftManufacturer
@@ -122,6 +124,14 @@ case object EconomyPlus extends SeatingClass {
 
 case object Economy extends SeatingClass {
   val priority = 4
+}
+
+object SeatPosition {
+  def apply(s: String) :Option[SeatPosition] = _ match {
+    case "Middle" => some(Middle)
+    case "Window" => some(Window)
+    case "Aisle" => some(Aisle)
+    case _ => none}
 }
 
 sealed trait SeatPosition {

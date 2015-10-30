@@ -13,7 +13,7 @@ import scalaz.syntax.applicative._
  *
  * Also, add "FrequentFlyer" info... maybe instead?
  */
-class Passenger(val familyName: String,
+case class Passenger(val familyName: String,
                 val givenName: String,
                 val middleName: Option[String],
                 val seatPosition: SeatPosition,
@@ -26,7 +26,7 @@ class Passenger(val familyName: String,
 
 
 object Passenger {
-  def apply(fields: Map[String, String]): Option[Passenger] =
+  def apply2(fields: Map[String, String]): Option[Passenger] =
     for {fn <- fields.get("familyName").filterNot(_.contains(" "))
          gn <- fields.get("givenName").filterNot(_.contains(" "))
          mn = fields.get("middleName")
@@ -34,10 +34,24 @@ object Passenger {
          sc <- fields.get("seatingClass").flatMap{_ match {case "FirstClass" => some(FirstClass)}}
          ff <- fields
           .get("frequentFlyer")
-          .cata(_ match {case "Odersky" => some(some(Odersky))}, some(none))
-          //.fold[Option[Option[FrequentFlyer]]](some(none))(_ match {case "Odersky" => some(some(Odersky))})
+          //.cata(_ match {case "Odersky" => some(some(Odersky))}, some(none))
+          .fold[Option[Option[FrequentFlyer]]](some(none))(_ match {case "Odersky" => some(some(Odersky))})
     } yield new Passenger(fn, gn, mn, sp, sc, ff)
 
+  def apply(fields: Map[String, String]): Option[Passenger] =
+    (fields.get("familyName").filterNot(_.contains(" ")) |@|
+     fields.get("givenName").filterNot(_.contains(" ")) |@|
+     some(fields.get("middleName")) |@|
+     fields.get("seatPosition").flatMap{SeatPosition.apply} |@|
+     fields.get("seatingClass").flatMap{_ match {
+       case "FirstClass" => some(FirstClass)
+       // ...
+       }} |@|
+     fields.get("frequentFlyer")
+           .cata(_ match {
+             case "Odersky" => some(some(Odersky))
+             // ..
+           }, some(none)))(Passenger.apply)
 }
 
 object test {
