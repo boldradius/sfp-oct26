@@ -8,6 +8,7 @@ object Version {
   val scalaLogging = "3.1.0"
   val squants      = "0.5.3"
   val nScalaTime   = "2.2.0"
+  val scalaZ       = "7.1.4"
 }
 
 object Dependencies {
@@ -20,6 +21,7 @@ object Dependencies {
     "ch.qos.logback"             %   "logback-core"    % Version.logback,
     "ch.qos.logback"             %   "logback-classic" % Version.logback,
     "com.typesafe.scala-logging" %%  "scala-logging"   % Version.scalaLogging,
-    "org.scalatest"              %%  "scalatest"       % Version.scalaTest     % "test"
+    "org.scalatest"              %%  "scalatest"       % Version.scalaTest     % "test",
+    "org.scalaz"                 %%  "scalaz-core"     % Version.scalaZ
   )
 }

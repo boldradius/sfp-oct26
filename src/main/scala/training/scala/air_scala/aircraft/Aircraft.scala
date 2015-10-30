@@ -1,5 +1,6 @@
 package training.scala.air_scala.aircraft
 
+import training.scala.air_scala.airline.Passenger
 import training.scala.air_scala.airport.{LongRunway, MediumRunway, ShortRunway, LandingSurface}
 
 
@@ -45,7 +46,7 @@ case class Aircraft(model: AircraftModel) {
     val planeSeats = plane.seats
     val seatSeq = planeSeats(seatClass)
 
-    val availableSeatSeq = seatSeq.filter{case AssignedSeat(_, passenger) => passenger == None}
+    val availableSeatSeq = seatSeq.filter(_.passenger.isEmpty)
 
     val assignedSeat =
       availableSeatSeq
@@ -68,17 +69,17 @@ case class Aircraft(model: AircraftModel) {
       (passenger.seatingClass.priority + 1 to frequentFlyer.priority)
         .toStream
         .map {
-          priority =>
+          p =>
 
             val upgradedPassenger =
               new Passenger(passenger.familyName, passenger.givenName,
                 passenger.middleName, passenger.seatPosition, new SeatingClass {
-                  override val priority: Int = priority
+                  override val priority: Int = p
                 }, passenger.frequentFlyer)
 
             checkInPassenger(upgradedPassenger, plane)
 
-        }.find { case (a, _) => a.isDefined }.flatten
+        }.find { case (a, _) => a.isDefined }
 
     ).getOrElse((None, plane))
 
@@ -146,16 +147,6 @@ sealed trait Seat {
   val seatPosition: SeatPosition
 }
 
-class Passenger(val familyName: String,
-                val givenName: String,
-                val middleName: Option[String],
-                val seatPosition: SeatPosition,
-                val seatingClass: SeatingClass,
-                val frequentFlyer: Option[FrequentFlyer]) {
-
-  require(seatPosition != Middle) // won't be able to recover from exception
-
-}
 
 /*case class FirstClassSeat(row: Int, seat: Char) extends Seat {
   final val seatingClass = FirstClass
